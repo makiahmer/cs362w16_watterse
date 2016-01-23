@@ -643,6 +643,39 @@ int getCost(int cardNumber)
   return -1;
 }
 
+
+//*refactor function for council_room affect*
+int councilfunc(struct gameState* state, int handPos){
+	printf("inside council_room function \n\n\n\n\n\n");
+	int i = 0;
+	int currentPlayer = whoseTurn(state);
+	
+	     //+4 Cards
+      for (i = 0; i < 4; i++)
+	{
+	  drawCard(currentPlayer, state);
+	}
+			
+      //+1 Buy
+      state->numBuys++;
+			
+      //Each other player draws a card
+      for (i = 0; i < state->numPlayers; i++)
+	{
+	  if ( i != currentPlayer )
+	    {
+	      drawCard(i, state);
+	    }
+	}
+			
+      //put played card in played card pile
+      discardCard(handPos, currentPlayer, state, 0);
+			
+      return 0;
+	
+	
+}
+
 int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState *state, int handPos, int *bonus)
 {
   int i;
@@ -688,28 +721,33 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       return 0;
 			
     case council_room:
+		return councilfunc(state, handPos);
       //+4 Cards
-      for (i = 0; i < 4; i++)
-	{
-	  drawCard(currentPlayer, state);
-	}
+	  
+      // for (i = 0; i < 4; i++)
+	// {
+	  // drawCard(currentPlayer, state);
+	// }
 			
       //+1 Buy
-      state->numBuys++;
+	  
+      // state->numBuys++;
 			
       //Each other player draws a card
-      for (i = 0; i < state->numPlayers; i++)
-	{
-	  if ( i != currentPlayer )
-	    {
-	      drawCard(i, state);
-	    }
-	}
+	  
+      // for (i = 0; i < state->numPlayers; i++)
+	// {
+	  // if ( i != currentPlayer )
+	    // {
+	      // drawCard(i, state);
+	    // }
+	// }
 			
       //put played card in played card pile
-      discardCard(handPos, currentPlayer, state, 0);
+	  
+      // discardCard(handPos, currentPlayer, state, 0);
 			
-      return 0;
+      // return 0;
 			
     case feast:
       //gain card with cost up to 5
