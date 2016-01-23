@@ -1,0 +1,17 @@
+
+I have refactored code for the following card effects in dominion.c:
+
+	Adventurer 
+	Village
+	Smithy
+	Minion
+	Council Room
+	
+They are now in function called:
+
+	adventurerfunc
+	villagefunc
+	smithyfunc
+	minionfunc
+	councilfunc
+	
