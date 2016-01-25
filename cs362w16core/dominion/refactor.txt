@@ -1,0 +1,6 @@
+Saturday, January 23:
+	Refactored card Great Hall into a function from switch statement
+	Refactored card Embargo into a function from switch statement
+	Refactored card Salvager into a function from switch statement
+	Refactored card Sea Hag into a function from switch statement
+	Refactored card Treasure Map into a function from switch statement

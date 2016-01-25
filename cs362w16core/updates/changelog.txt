@@ -1,0 +1,3 @@
+1)	Changed card Great Hall functionality. Move from switch statement to it's own function. 
+
+
