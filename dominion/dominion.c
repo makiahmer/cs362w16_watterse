@@ -1298,7 +1298,7 @@ int cardEffect_Adventurer(int drawntreasure, int currentPlayer, int cardDrawn, i
 			shuffle(currentPlayer, state);
 		}
 		drawCard(currentPlayer, state);
-		cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer] - 1];//top card of hand is most recently drawn card. // BUG: don't set cardDrawn
+
 		if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
 			drawntreasure++;
 		else {
@@ -1399,7 +1399,7 @@ int cardEffect_Feast(int currentPlayer, int temphand[], int choice1, struct game
 }
 
 int cardEffect_Gardens() {
-	return -1; // BUG: set this to a different return
+	return 0;
 }
 
 int cardEffect_Mine(int currentPlayer, int choice1, int choice2, int handPos, struct gameState *state) {
