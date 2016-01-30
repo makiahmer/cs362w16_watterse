@@ -9,6 +9,7 @@ int compare(const void* a, const void* b) {
   if (*(int*)a > *(int*)b)
     return 1;
   if (*(int*)a < *(int*)b)
+  if (*(int*)a < *(int*)b)
     return -1;
   return 0;
 }
@@ -262,8 +263,9 @@ int playCard(int handPos, int choice1, int choice2, int choice3, struct gameStat
 	
   //reduce number of actions
   state->numActions--;
-
-  //update coins (Treasure cards may be added with card draws)
+  
+//printf("state coin before update coins is % d \n", state->coins);
+//update coins (Treasure cards may be added with card draws)
   updateCoins(state->whoseTurn, state, coin_bonus);
 	
   return 0;
@@ -646,7 +648,7 @@ int getCost(int cardNumber)
 
 //*refactor function for council_room affect*
 int councilfunc(struct gameState* state, int handPos){
-	printf("inside council_room function \n\n\n\n\n\n");
+	//printf("inside council_room function \n\n\n\n\n\n");
 	int i = 0;
 	int currentPlayer = whoseTurn(state);
 	
@@ -678,13 +680,14 @@ int councilfunc(struct gameState* state, int handPos){
 //*refactor function for smithy affect*
 int smithyfunc(struct gameState* state, int handPos){
 	
-	printf("inside smithyfunc\n\n\n\n\n");
+	//printf("inside smithyfunc\n\n\n\n\n");
 	int i = 0;
 	int currentPlayer = whoseTurn(state);
 	  //+3 Cards
       for (i = 0; i < 5; i++)
 	{
 	  drawCard(currentPlayer, state);
+
 	}
 			
       //discard card from hand
@@ -694,7 +697,7 @@ int smithyfunc(struct gameState* state, int handPos){
 
 //*refactor function for adventurer affect*
 int adventurerfunc( struct gameState* state){
-	
+	//printf("inside adventurerfunc\n\n\n\n\n");
 	int currentPlayer = whoseTurn(state);
 	int cardDrawn;
 	int temphand[MAX_HAND];
@@ -733,7 +736,7 @@ int adventurerfunc( struct gameState* state){
 //*refactor function for village affect*
 
 int villagefunc (struct gameState* state, int handPos){
-	
+	  //printf("inside villagefunc\n\n\n\n\n");
 	  int currentPlayer = whoseTurn(state);
 	
 	  //+1 Card
@@ -753,6 +756,7 @@ int villagefunc (struct gameState* state, int handPos){
 //*refactor function for minion affect*
 
 int minionfunc(int choice1, int choice2, struct gameState* state, int handPos){
+	//printf("inside minionfunc\n\n\n\n\n");
 	int i,j;
 	int currentPlayer = whoseTurn(state);
 	
@@ -856,32 +860,6 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 			
     case council_room:
 		return councilfunc(state, handPos);
-      //+4 Cards
-	  
-      // for (i = 0; i < 4; i++)
-	// {
-	  // drawCard(currentPlayer, state);
-	// }
-			
-      //+1 Buy
-	  
-      // state->numBuys++;
-			
-      //Each other player draws a card
-	  
-      // for (i = 0; i < state->numPlayers; i++)
-	// {
-	  // if ( i != currentPlayer )
-	    // {
-	      // drawCard(i, state);
-	    // }
-	// }
-			
-      //put played card in played card pile
-	  
-      // discardCard(handPos, currentPlayer, state, 0);
-			
-      // return 0;
 			
     case feast:
       //gain card with cost up to 5
@@ -1020,16 +998,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case village:
 		return villagefunc(state, handPos);
-      //+1 Card
-	  
-      //drawCard(currentPlayer, state);
-			
-      //+2 Actions
-      //state->numActions = state->numActions + 2;
-			
-      //discard played card from hand
-      //discardCard(handPos, currentPlayer, state, 0);
-      //return 0;
+
 		
     case baron:
       state->numBuys++;//Increase buys by 1!
@@ -1323,6 +1292,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case embargo: 
       //+2 Coins
+	  //printf("state coin is % d \n", state->coins);
       state->coins = state->coins + 2;
 			
       //see if selected pile is in play
@@ -1335,7 +1305,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       state->embargoTokens[choice1]++;
 			
       //trash card
-      discardCard(handPos, currentPlayer, state, 1);		
+      discardCard(handPos, currentPlayer, state, 1);
+	  //printf("state coin after is % d \n", state->coins);	  
       return 0;
 		
     case outpost:
@@ -1506,7 +1477,13 @@ int updateCoins(int player, struct gameState *state, int bonus)
     }	
 
   //add bonus
-  state->coins += bonus;
+	//printf ("bonus is %d \n", bonus);
+	//printf("state coin before adding bonus % d \n", state->coins);
+	state->coins += bonus;
+	//printf("state coin after adding bonus % d \n", state->coins);
+
+  // debugg statement
+  //printf("total coins : %d \n", state->coins);
 
   return 0;
 }
