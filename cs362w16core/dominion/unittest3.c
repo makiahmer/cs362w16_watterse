@@ -29,11 +29,15 @@ int main(){
 	printf("Before test:\n");
 	printf("   whoseTurn function call: %d\n", whoseTurn(&G));
 	printf("   Direct variable from gamestate: %d\n", G.whoseTurn);
+	if(whoseTurn(&G) != G.whoseTurn)
+		printf("Bug!:\n   players turn should be: %d", G.whoseTurn);
 	endTurn(&G);
 	
 	printf("After test 1: Ended the turn\n");
 	printf("   whoseTurn function call: %d\n", whoseTurn(&G));
 	printf("   Direct variable from gamestate: %d\n", G.whoseTurn);
+	if(whoseTurn(&G) != G.whoseTurn)
+		printf("Bug!:\n   players turn should be: %d", G.whoseTurn);
 	printf("\n");
 	printf("----------------------------------------------------------------\n");
 	printf("\n");

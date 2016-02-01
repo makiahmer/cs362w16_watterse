@@ -12,6 +12,7 @@
 //	When played:
 //	+3 card draws
 //
+//
 
 int main(){
 	
@@ -42,13 +43,26 @@ int main(){
 	printf("   Player deck Count: %d\n", G.deckCount[player]);
 	printf("   player discard Count: %d\n", G.discardCount[player]);
 	
+	int test1 = G.handCount[player] + 2;
+	int test2 = G.deckCount[player] - 3;
+	int test3 = G.numActions;
+	int test4 = G.discardCount[player] + 1;
+	
 	cardEffect(smithy, 1, 1, 1, &G, 0, 0);
 	
 	printf("After test 1: cards in hand and cards in deck\n");
 	printf("   Player hand count: %d\n", G.handCount[player]);
+	if(test1 != G.handCount[player])
+		printf("Bug!:\n   Hand count should be: %d\n", test1);
 	printf("   Player action count: %d\n", G.numActions);
+	if(test3 != G.numActions)
+		printf("Bug!:\n   Action count should be: %d\n", test3);
 	printf("   Player deck Count: %d\n", G.deckCount[player]);
+	if(test2 != G.deckCount[player])
+		printf("Bug!:\n   Deck count should be: %d\n", test2);
 	printf("   player discard Count: %d\n", G.discardCount[player]);
+	if(test4 != G.discardCount[player])
+		printf("Bug!:\n   Discard count should be: %d\n", test4);
 	
 	//deck initialization might be bugged. G.deckCount[player] was returning a number while in
 	//a for loop then a different number while outside of the for loop. My speculation is that
@@ -57,13 +71,27 @@ int main(){
 			drawCard(G.whoseTurn, &G);
 	}
 	G.handCount[player] = 1;
+	
+	
+	test1 = G.handCount[player] - 1;
+	test2 = G.deckCount[player];
+	test3 = G.numActions;
+	test4 = test4 + 1;
 	cardEffect(smithy, -1, -1, -1, &G, 0, 0);
 	
 	printf("After test 2: no cards in hand and no cards in deck\n");
 	printf("   Player hand count: %d\n", G.handCount[player]);
+	if(test1 != G.handCount[player])
+		printf("Bug!:\n   Hand count should be: %d\n", test1);
 	printf("   Player action count: %d\n", G.numActions);
+	if(test3 != G.numActions)
+		printf("Bug!:\n   Action count should be: %d\n", test3);
 	printf("   Player deck Count: %d\n", G.deckCount[player]);
+	if(test2 != G.deckCount[player])
+		printf("Bug!:\n   Deck count should be: %d\n", test2);
 	printf("   player discard Count: %d\n", G.discardCount[player]);
+	if(test4 != G.discardCount[player])
+		printf("Bug!:\n   Discard count should be: %d\n", test4);
 	printf("After tests: The rest of the game state variables\n");
 	printf("   Number of players: %d\n", G.numPlayers); 
 	printf("   Supply Counter: %d\n", G.supplyCount[treasure_map+1]);

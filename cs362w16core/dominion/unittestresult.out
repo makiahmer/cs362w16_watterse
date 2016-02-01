@@ -1,13 +1,13 @@
 ######################################################f1
 Testing numHandCards() functionality.
 Before tests:
-   Player hand count: 5
+   Player1 hand count: 5
    Player2 hand count: 5
 After test 1: player2 draws a card
-   Player hand count: 5
+   Player1 hand count: 5
    Player2 hand count: 6
 After test 2: no cards in hand and no cards in deck
-   Player hand count: 0
+   Player1 hand count: 0
    Player2 hand count: 0
 
 ----------------------------------------------------------------
@@ -331,8 +331,8 @@ dominion.c:creating 'dominion.c.gcov'
     #####:  308:  return 0;
         -:  309:}
         -:  310:
-        6:  311:int numHandCards(struct gameState *state) {
-        6:  312:  return state->handCount[ whoseTurn(state) ];
+       12:  311:int numHandCards(struct gameState *state) {
+       12:  312:  return state->handCount[ whoseTurn(state) ];
         -:  313:}
         -:  314:
     #####:  315:int handCard(int handPos, struct gameState *state) {
@@ -366,8 +366,8 @@ dominion.c:creating 'dominion.c.gcov'
     #####:  343:  return count;
         -:  344:}
         -:  345:
-        6:  346:int whoseTurn(struct gameState *state) {
-        6:  347:  return state->whoseTurn;
+       12:  346:int whoseTurn(struct gameState *state) {
+       12:  347:  return state->whoseTurn;
         -:  348:}
         -:  349:
     #####:  350:int endTurn(struct gameState *state) {
@@ -1722,9 +1722,9 @@ dominion.c:creating 'dominion.c.gcov'
       564:  312:  return state->handCount[ whoseTurn(state) ];
         -:  313:}
         -:  314:
-        6:  315:int handCard(int handPos, struct gameState *state) {
-        6:  316:  int currentPlayer = whoseTurn(state);
-        6:  317:  return state->hand[currentPlayer][handPos];
+       12:  315:int handCard(int handPos, struct gameState *state) {
+       12:  316:  int currentPlayer = whoseTurn(state);
+       12:  317:  return state->hand[currentPlayer][handPos];
         -:  318:}
         -:  319:
     #####:  320:int supplyCount(int card, struct gameState *state) {
@@ -1753,8 +1753,8 @@ dominion.c:creating 'dominion.c.gcov'
     #####:  343:  return count;
         -:  344:}
         -:  345:
-      570:  346:int whoseTurn(struct gameState *state) {
-      570:  347:  return state->whoseTurn;
+      576:  346:int whoseTurn(struct gameState *state) {
+      576:  347:  return state->whoseTurn;
         -:  348:}
         -:  349:
     #####:  350:int endTurn(struct gameState *state) {
@@ -3131,8 +3131,8 @@ dominion.c:creating 'dominion.c.gcov'
     #####:  343:  return count;
         -:  344:}
         -:  345:
-        3:  346:int whoseTurn(struct gameState *state) {
-        3:  347:  return state->whoseTurn;
+        5:  346:int whoseTurn(struct gameState *state) {
+        5:  347:  return state->whoseTurn;
         -:  348:}
         -:  349:
         1:  350:int endTurn(struct gameState *state) {
@@ -5529,14 +5529,21 @@ Before tests:
    Player hand count: 1
    Player action count: 1
    Player deck Count: 9
+   player discard Count: 0
 After test 1: cards in hand and cards in deck
    Player hand count: 1
    Player action count: 2
    Player deck Count: 8
+   player discard Count: 0
+Bug!:
+   Discard count should be: 1
 After test 2: no cards in hand and no cards in deck
    Player hand count: 0
    Player action count: 3
    Player deck Count: 0
+   player discard Count: 0
+Bug!:
+   Discard count should be: 2
 After tests: The rest of the game state variables
    Number of players: 2
    Supply Counter: 0
@@ -6930,11 +6937,15 @@ After test 1: cards in hand and cards in deck
    Player action count: 1
    Player deck Count: 6
    player discard Count: 0
+Bug!:
+   Discard count should be: 1
 After test 2: no cards in hand and no cards in deck
    Player hand count: 0
    Player action count: 1
    Player deck Count: 0
    player discard Count: 0
+Bug!:
+   Discard count should be: 2
 After tests: The rest of the game state variables
    Number of players: 2
    Supply Counter: 0
@@ -8317,7 +8328,7 @@ dominion.c:creating 'dominion.c.gcov'
         -: 1357://end of dominion.c
         -: 1358:
 ######################################################c3
-Testing Smithy card functionality.
+Testing Village card functionality.
 Before tests:
    Player hand count: 1
    Player action count: 1
@@ -8328,11 +8339,14 @@ After test 1: cards in hand and cards in deck
    Player action count: 3
    Player deck Count: 8
    player discard Count: 0
+Bug!:
+   Discard count should be: 1
 After test 2: no cards in hand and no cards in deck
-   Player hand count: 0
    Player action count: 5
    Player deck Count: 0
    player discard Count: 0
+Bug!:
+   Discard count should be: 2
 After tests: The rest of the game state variables
    Number of players: 2
    Supply Counter: 0
@@ -9715,25 +9729,22 @@ dominion.c:creating 'dominion.c.gcov'
         -: 1357://end of dominion.c
         -: 1358:
 ######################################################c4
-Testing Smithy card functionality.
+Testing Council Room card functionality.
 Before tests:
    Player hand count: 1
    Second player hand Count: 0
    Player buy count: 1
    Player deck Count: 9
-   player discard Count: 0
 After test 1: cards in hand and cards in deck
    Player hand count: 4
    Second player hand Count: 1
    Player buy count: 2
    Player deck Count: 5
-   player discard Count: 0
 After test 2: no cards in hand and no cards in deck
    Player hand count: 0
    Second player hand Count: 0
-   Player Buy count: 3
+   Player buy count: 3
    Player deck Count: 0
-   player discard Count: 0
 After tests: The rest of the game state variables
    Number of players: 2
    Supply Counter: 0

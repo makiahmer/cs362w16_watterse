@@ -39,12 +39,16 @@ int main(){
 	for(i = 0; i < numHandCards(&G); i++){
 		printf("%d ",G.hand[G.whoseTurn][i]);
 	}
+	if(G.hand[G.whoseTurn][0] != handCard(0, &G))
+		printf("Bug!:\n   Card at location should be: %d.\n", G.hand[G.whoseTurn][0]);
 	printf("\n   Player hand location 1: %d\n", handCard(0, &G));
 	G.whoseTurn = 1;
 	printf("   Player2 hand: ");
 	for(i = 0; i < numHandCards(&G); i++){
 		printf("%d ",G.hand[G.whoseTurn][i]);
 	}
+	if(G.hand[G.whoseTurn][0] != handCard(0, &G))
+		printf("Bug!:\n   Card at location should be: %d.\n", G.hand[G.whoseTurn][0]);
 	printf("\n   Player2 hand location 1: %d\n", handCard(0, &G));
 	
 	drawCard(G.whoseTurn, &G);
@@ -52,15 +56,20 @@ int main(){
 	G.whoseTurn = 0;
 	printf("After test 1: Player 2 draws a card.\n");
 	printf("   Player hand: ");
+
 	for(i = 0; i < numHandCards(&G); i++){
 		printf("%d ",G.hand[G.whoseTurn][i]);
 	}
+	if(G.hand[G.whoseTurn][5] != handCard(5, &G))
+		printf("Bug!:\n   Card at location should be: %d.\n", G.hand[G.whoseTurn][5]);
 	printf("\n   Player hand location 6: %d\n", handCard(5, &G));
 	G.whoseTurn = 1;
 	printf("   Player2 hand: ");
 	for(i = 0; i < numHandCards(&G); i++){
 		printf("%d ",G.hand[G.whoseTurn][i]);
 	}
+	if(G.hand[G.whoseTurn][5] != handCard(5, &G))
+		printf("Bug!:\n   Card at location should be: %d.\n", G.hand[G.whoseTurn][5]);
 	printf("\n   Player2 hand location 6: %d\n", handCard(5, &G));
 	
 	//deck initialization might be bugged. G.deckCount[player] was returning a number while in
@@ -83,12 +92,16 @@ int main(){
 	for(i = 0; i < numHandCards(&G); i++){
 		printf("%d ",G.hand[G.whoseTurn][i]);
 	}
+	if(G.hand[G.whoseTurn][5] != handCard(5, &G))
+		printf("Bug!:\n   Card at location should be: %d.\n", G.hand[G.whoseTurn][5]);
 	printf("\n   Player hand location 6: %d\n", handCard(5, &G));
 	G.whoseTurn = 1;
 	printf("   Player2 hand: ");
 	for(i = 0; i < numHandCards(&G); i++){
 		printf("%d ",G.hand[G.whoseTurn][i]);
 	}
+	if(G.hand[G.whoseTurn][5] != handCard(5, &G))
+		printf("Bug!:\n   Card at location should be: %d.\n", G.hand[G.whoseTurn][5]);
 	printf("\n   Player2 hand location 6: %d\n", handCard(5, &G));
 	printf("\n");
 	printf("----------------------------------------------------------------\n");

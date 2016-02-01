@@ -13,6 +13,7 @@ The functions that I unit tested were:
 		gcov ~ Lines executed: 18.54% of 577
 		Every line of the function has been run.
 		
+		
     whoseTurn()
 		gcov ~ Lines executed: 19.24% of 577
 		Every line of the function has been run.
@@ -27,23 +28,31 @@ The Cards that I unit tested were:
 		gcov ~ Lines executed: 26.17% of 577
 		Refactored into a function in assignment 1.
 		Every line of the function has been run.
+		Bug: Discard pile count is off
 		
 	Smithy
 		gcov ~ Lines executed: 23.74% of 577
 		Every line of the smithy switch condition has been run.
+		Bug: Discard pile count is off
 		
     Village
 		gcov ~ Lines executed: 23.74% of 577
 		Every line of the village switch condition has been run.
+		Bug: Discard pile count is off
 		
     Council Room
 		gcov ~ Lines executed: 24.44% of 577
 		Every line of the council_room switch condition has been run.
-
+		
 Report:		
-Every output from every function and card logic worked as intended as far as I could tell. However, 
+Asside from a single issue with the discard functionality which will be outlined bellow, every 
+output from every function and card logic worked as intended as far as I could tell. However, 
 there were a couple issues that I found outside of the functions I tested that might cause concern 
 for future assignments.
+
+I was finding that my discardCount variable wasn't increasing when a card was played. It would linger 
+at 0 even after running through the discard card function call. Looking into it, I found that 
+discardCount wasn't even being increased when a card was being discarded. 
 
 While trying to draw cards until the deck was empty, I would have issues where the for loop would 
 run for i < G.deckCount[player] times. When it was done, I would call the variable again and it 
@@ -56,6 +65,3 @@ Though it never complicated my test as I just needed a recordable and compareabl
 initialization of the player hands didn't have ideal outcomes. In every case, it would give me player 
 1's hand as all 4's and player 2's hand as all 0's. Again, since this function was outside of the 
 scope of my test, I wasn't able to pin down the issue.
-
-Neither of the issues prevented me from testing within the scope of my issues and I was able to complete 
-my assignment.
