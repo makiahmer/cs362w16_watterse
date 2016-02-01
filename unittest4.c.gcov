@@ -1,0 +1,46 @@
+        -:    0:Source:unittest4.c
+        -:    0:Graph:unittest4.gcno
+        -:    0:Data:unittest4.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:#include <assert.h>
+        -:    8:
+        -:    9:
+        1:   10:int main(){
+        -:   11:	struct gameState g;
+        -:   12:	int i, ret;
+        1:   13:	g.deckCount[0] = 5;
+        1:   14:	g.handCount[0] = 5;
+        1:   15:	g.discardCount[0] = 5;
+        -:   16:	
+        -:   17:	int c[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
+        1:   18:	       sea_hag, tribute, smithy};
+        -:   19:	
+        -:   20:
+        -:   21:	// put only smith in the deck
+        6:   22:	for (i = 0; i < g.deckCount[0]; i++){
+        5:   23:		g.deck[0][i] = c[9];
+        -:   24:	}
+        -:   25:	
+        -:   26:	//put card in direct relation to c[] indexes
+        6:   27:	for ( i = 0; i < g.handCount[0]; i++){
+        5:   28:		g.hand[0][i] = c[i];
+        -:   29:	}
+        -:   30:	
+        6:   31:	for ( i = 0; i < g.discardCount[0]; i++){
+        5:   32:		g.discard[0][i] = c[i];
+        -:   33:	}
+        -:   34:	
+        -:   35:	
+        1:   36:	ret = fullDeckCount(0,smithy, &g);
+        1:   37:	printf (" ret is %d \n",ret);
+        1:   38:	assert(ret == 5);
+        1:   39:	printf (" fullDeck Count works \n");
+        1:   40:	return 0;
+        -:   41:}

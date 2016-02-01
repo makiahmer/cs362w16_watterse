@@ -1,0 +1,45 @@
+        -:    0:Source:cardtest2.c
+        -:    0:Graph:cardtest2.gcno
+        -:    0:Data:cardtest2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:#include <assert.h>
+        -:    8:
+        -:    9:
+        1:   10:int main(){
+        -:   11:	struct gameState g;
+        -:   12:	int i, ret;
+        -:   13:	
+        -:   14:	  int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
+        1:   15:	       sea_hag, tribute,council_room};
+        -:   16:
+        1:   17:	printf ("Starting game.\n");
+        -:   18:	
+        1:   19:	initializeGame(2, k, 5, &g);
+        -:   20:		   
+        1:   21:	g.hand[0][0] = council_room;
+        -:   22:	
+        1:   23:	printf("handcount is %d \n", g.handCount[0]);
+        1:   24:	printf("numBuy is %d \n", g.numBuys);
+        -:   25:	
+        1:   26:	assert(g.handCount[0] == 5);
+        1:   27:	assert(g.numBuys == 1);
+        -:   28:	
+        1:   29:	councilfunc(&g, 0);
+        -:   30:	
+        1:   31:	printf("handcount is %d \n", g.handCount[0]);
+        1:   32:	printf("numBuy is %d \n", g.numBuys);
+        -:   33:	
+        1:   34:	assert(g.handCount[0] == 8);
+        1:   35:	assert(g.numBuys == 2);
+        -:   36:	
+        -:   37:	//assert(g.handCount[0] == 9);
+        1:   38:	printf ("councilfunc works \n");
+        1:   39:	return 0;
+        -:   40:}

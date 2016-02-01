@@ -73,8 +73,25 @@ myTest:
 	./cardtest1 >> unittestresult.out
 	./cardtest2 >> unittestresult.out
 	./cardtest3 >> unittestresult.out
-	gcov dominion.c >> unittestresult.out
-	cat dominion.c.gcov >> unittestresult.out
+	./cardtest4 >> unittestresult.out
+	gcov unittest1.c >> unittestresult.out
+	cat unittest1.c.gcov >> unittestresult.out
+	gcov unittest2.c >> unittestresult.out
+	cat unittest2.c.gcov >> unittestresult.out
+	gcov unittest3.c >> unittestresult.out
+	cat unittest3.c.gcov >> unittestresult.out
+	gcov unittest4.c >> unittestresult.out
+	cat unittest4.c.gcov >> unittestresult.out
+	gcov cardtest1.c >> unittestresult.out
+	cat cardtest1.c.gcov >> unittestresult.out
+	gcov cardtest2.c >> unittestresult.out
+	cat cardtest2.c.gcov >> unittestresult.out
+	gcov cardtest3.c >> unittestresult.out
+	cat cardtest3.c.gcov >> unittestresult.out
+	gcov cardtest4.c >> unittestresult.out
+	cat cardtest4.c.gcov >> unittestresult.out
+	#gcov dominion.c >> unittestresult.out
+	#cat dominion.c.gcov >> unittestresult.out
 
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
@@ -88,7 +105,8 @@ runtests: testDrawCard
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
 
-all: playdom playdom2 player testDrawCard testBuyCard badTestDrawCard 
+#all: playdom playdom2 player testDrawCard testBuyCard badTestDrawCard 
+all: playdom playdom2 player testDrawCard testBuyCard badTestDrawCard unit1 unit2 unit3 unit4 card1 card2 card3 card4
 
 clean:
 	rm -f *.o playdom.exe playdom test.exe test player unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 player.exe testInit testInit.exe *.gcov *.gcda *.gcno *.so

@@ -1,0 +1,67 @@
+        -:    0:Source:unittest3.c
+        -:    0:Graph:unittest3.gcno
+        -:    0:Data:unittest3.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    0:Source is newer than graph
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:#include <assert.h>
+        -:    8:
+        -:    9:
+        1:   10:int main(){
+        -:   11:	
+        -:   12:	struct gameState g;
+        -:   13:
+        1:   14:	g.hand[0][0] = copper;
+        1:   15:	g.hand[0][1] = silver;
+        1:   16:	g.hand[0][2] = gold;
+        -:   17:	
+        -:   18:	int total; 
+        -:   19:	int i;
+        1:   20:	int money = 0;
+        -:   21:	int r;
+        4:   22:	for (i = 0; i < 3; i ++){
+        3:   23:		printf("what is in hand : %d \n", g.hand[0][i]);
+        -:   24:		
+        -:   25:		//increment handCount when there is a valid card in hand
+        3:   26:		if (g.hand[0][i] >= 0 && g.hand[0][i] <= 26){
+        3:   27:			g.handCount[0]++;
+        -:   28:		}
+        -:   29:	}
+        -:   30:	
+        -:   31:	
+        1:   32:	printf ("I have %d in hand \n",g.handCount[0]);
+        1:   33:	i = 0;
+        5:   34:	while(i<numHandCards(&g)){
+        3:   35:	  if (handCard(i, &g) == copper){
+        1:   36:	    r = playCard(i, -1, -1, -1, &g);
+        1:   37:	    money++;
+        -:   38:	  }
+        2:   39:	  else if (handCard(i, &g) == silver){
+        1:   40:	    r = playCard(i, -1, -1, -1, &g);
+        1:   41:	    money += 2;
+        -:   42:	  }
+        1:   43:	  else if (handCard(i, &g) == gold){
+        1:   44:	    r = playCard(i, -1, -1, -1, &g);
+        1:   45:	    money += 3;
+        -:   46:	  }
+        3:   47:	  i++;
+        -:   48:	}
+        -:   49:	
+        1:   50:	assert(r == -1 || r == 0);
+        1:   51:	printf("playCard Works ! \n");
+        -:   52:	
+        -:   53:	//updateCoins(0,&g,5);
+        -:   54:	
+        -:   55:	//total = g.coins;
+        -:   56:    //printf("total coin is : %d \n", total);
+        -:   57:	
+        -:   58:	//assert (total == 11);
+        -:   59:	
+        1:   60:	return 0;
+        -:   61:}

@@ -30,7 +30,7 @@ int main(){
 	
 	
 	printf ("I have %d in hand \n",g.handCount[0]);
-	
+	i = 0;
 	while(i<numHandCards(&g)){
 	  if (handCard(i, &g) == copper){
 	    r = playCard(i, -1, -1, -1, &g);

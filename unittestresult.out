@@ -1,0 +1,676 @@
+Starting game.
+0: bought silver
+0: end turn
+Player 0: 3
+Player 1: 2
+0: bought silver
+0: end turn
+Player 0: 5
+Player 1: 4
+0: bought silver
+0: end turn
+Player 0: 3
+Player 1: 2
+0: bought silver
+0: end turn
+Player 0: 6
+Player 1: 3
+0: bought gold
+0: end turn
+Player 0: 2
+Player 1: 1
+0: bought silver
+0: end turn
+Player 0: 5
+Player 1: 4
+0: bought province
+0: end turn
+Player 0: 3
+Player 1: 1
+0: bought duchy
+0: end turn
+Player 0: 5
+Player 1: 12
+0: bought silver
+0: end turn
+Player 0: 3
+Player 1: 20
+0: bought province
+0: end turn
+Player 0: 6
+Player 1: 0
+0: bought province
+0: end turn
+Player 0: 3
+Player 1: 21
+0: bought silver
+0: end turn
+Player 0: 5
+Player 1: 33
+0: bought gold
+0: end turn
+Player 0: 2
+Player 1: 10
+0: bought silver
+0: end turn
+Player 0: 4
+Player 1: 16
+0: bought duchy
+0: end turn
+Player 0: 2
+Player 1: 34
+0: bought silver
+0: end turn
+Player 0: 5
+Player 1: 44
+0: bought province
+0: end turn
+Player 0: 3
+Player 1: 0
+0: bought province
+0: end turn
+Player 0: 5
+Player 1: 25
+0: bought duchy
+0: end turn
+Player 0: 3
+Player 1: 42
+0: bought silver
+0: end turn
+Player 0: 4
+Player 1: 56
+0: bought gold
+0: end turn
+Player 0: 3
+Player 1: 75
+0: bought silver
+0: end turn
+Player 0: 4
+Player 1: 3
+0: bought province
+0: end turn
+Player 0: 3
+Player 1: 36
+0: bought silver
+0: end turn
+Player 0: 5
+Player 1: 45
+0: bought duchy
+0: end turn
+Player 0: 2
+Player 1: 55
+0: bought gold
+0: end turn
+Player 0: 6
+Player 1: 69
+0: bought gold
+0: end turn
+Player 0: 3
+Player 1: 93
+0: bought gold
+0: end turn
+Player 0: 5
+Player 1: 0
+0: bought province
+0: end turn
+Player 0: 3
+Player 1: 22
+0: bought silver
+0: end turn
+Player 0: 4
+Player 1: 48
+0: bought duchy
+0: end turn
+Player 0: 3
+Player 1: 60
+0: bought gold
+0: end turn
+Player 0: 5
+Player 1: 75
+0: bought gold
+0: end turn
+Player 0: 3
+Player 1: 110
+0: end turn
+Player 0: 6
+Player 1: 111
+0: bought province
+0: end turn
+Player 0: 3
+Player 1: 1
+Finished game.
+Player 0: 3
+Player 1: 1
+Unit test 1 for isGameOver, result check: 1
+game over complete
+what is in hand : 4 
+what is in hand : 5 
+what is in hand : 6 
+I have 3 in hand 
+total coin is : 11 
+what is in hand : 4 
+what is in hand : 5 
+what is in hand : 6 
+I have 3 in hand 
+playCard Works ! 
+ ret is 5 
+ fullDeck Count works 
+Starting game.
+smithyfunc works 
+Starting game.
+handcount is 5 
+numBuy is 1 
+handcount is 8 
+numBuy is 2 
+councilfunc works 
+Starting game.
+handcount is 5 
+coin is 4 
+handcount is 4 
+coin is 3 
+g.embargoTokens[smithy] is : 1 
+embargo switch statement works 
+Starting game.
+handcount is 5 
+g.outpostPlayed is 0 
+handcount is 4 
+g.outpostPlayed is 1 
+outpost switch statement works 
+File 'unittest1.c'
+Lines executed:89.29% of 56
+unittest1.c:creating 'unittest1.c.gcov'
+
+        -:    0:Source:unittest1.c
+        -:    0:Graph:unittest1.gcno
+        -:    0:Data:unittest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "assert.h"
+        -:    2:#include "dominion.h"
+        -:    3:#include <stdio.h>
+        -:    4:#include "rngs.h"
+        -:    5:#include <stdlib.h>
+        -:    6:
+        -:    7:
+        -:    8:// test to ensure isGameOver works
+        -:    9:
+        1:   10:int main (int argc, char** argv) {
+        -:   11:  struct gameState G;
+        1:   12:  struct gameState *p = &G;
+        -:   13:
+        -:   14:  int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
+        1:   15:	       sea_hag, tribute, smithy};
+        -:   16:
+        1:   17:  printf ("Starting game.\n");
+        -:   18:  
+        -:   19:  
+        -:   20:  // set up game
+        1:   21:  initializeGame(2, k, 5, p);
+        -:   22:  
+        1:   23:  int money = 0;
+        1:   24:  int i=0;
+        1:   25:  int check = 0;
+        -:   26:
+        -:   27:
+        -:   28:do{
+       35:   29:    money = 0;
+        -:   30:	
+      210:   31:    for (i = 0; i < numHandCards(p); i++) {
+      175:   32:      if (handCard(i, p) == copper)
+       61:   33:    money++;
+      114:   34:      else if (handCard(i, p) == silver)
+       43:   35:    money += 2;
+       71:   36:      else if (handCard(i, p) == gold)
+       15:   37:    money += 3;
+        -:   38:
+        -:   39:    }
+        -:   40:	// player 0 buys card 
+       35:   41:    if (whoseTurn(p) == 0) {
+        -:   42:		
+        1:   43:      if (money >= 8) {
+    #####:   44:        printf("0: bought province\n"); 
+    #####:   45:        buyCard(province, p);
+        -:   46:      }
+        1:   47:      else if (money >= 6) {
+    #####:   48:        printf("0: bought gold\n"); 
+    #####:   49:        buyCard(gold, p);
+        -:   50:      }
+        -:   51:	  
+        1:   52:	  else if (money >= 5) {
+    #####:   53:        printf("0: bought duchy\n"); 
+    #####:   54:        buyCard(duchy, p);
+        -:   55:      }
+        1:   56:      else if (money >= 3) {
+        1:   57:        printf("0: bought silver\n"); 
+        1:   58:        buyCard(silver, p);
+        -:   59:      }
+        -:   60:
+        1:   61:      printf("0: end turn\n");
+        1:   62:      endTurn(p);
+        -:   63:    }
+        -:   64:	// player 1 buys card 
+        -:   65:    else {
+        -:   66:
+       34:   67:      if (money >= 8) {
+        8:   68:        printf("0: bought province\n"); 
+        8:   69:        buyCard(province, p);
+        -:   70:      }
+       26:   71:      else if (money >= 6) {
+        8:   72:        printf("0: bought gold\n"); 
+        8:   73:        buyCard(gold, p);
+        -:   74:      }
+        -:   75:	  
+       18:   76:	  else if (money >= 5) {
+        5:   77:        printf("0: bought duchy\n"); 
+        5:   78:        buyCard(duchy, p);
+        -:   79:      }
+       13:   80:      else if (money >= 3) {
+       12:   81:        printf("0: bought silver\n"); 
+       12:   82:        buyCard(silver, p);
+        -:   83:      }
+        -:   84:
+       34:   85:      printf("0: end turn\n");
+       34:   86:      endTurn(p);
+        -:   87:      
+       34:   88:      endTurn(p);      
+        -:   89:    }
+        -:   90:
+       35:   91:      printf ("Player 0: %d\nPlayer 1: %d\n", scoreFor(0, p), scoreFor(1, p));
+        -:   92:	
+       35:   93:	check = isGameOver(p);
+       35:   94:	assert (check == 0 || check == 1);
+       35:   95:  }  while (!check);
+        -:   96:
+        1:   97:  printf ("Finished game.\n");
+        1:   98:  printf ("Player 0: %d\nPlayer 1: %d\n", scoreFor(0, p), scoreFor(1, p));
+        1:   99:  printf ("Unit test 1 for isGameOver, result check: %d\n", check);
+        1:  100:  if (check == 1){
+        1:  101:	  printf ("game over complete\n");
+        -:  102:  }
+        -:  103:
+        1:  104:  return 0;
+        -:  105:}File 'unittest2.c'
+Lines executed:100.00% of 14
+unittest2.c:creating 'unittest2.c.gcov'
+
+        -:    0:Source:unittest2.c
+        -:    0:Graph:unittest2.gcno
+        -:    0:Data:unittest2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:#include <assert.h>
+        -:    8:
+        -:    9:
+        1:   10:int main(){
+        -:   11:	
+        -:   12:	struct gameState g;
+        -:   13:
+        1:   14:	g.hand[0][0] = copper;
+        1:   15:	g.hand[0][1] = silver;
+        1:   16:	g.hand[0][2] = gold;
+        -:   17:	
+        -:   18:	int total; 
+        -:   19:	int i;
+        -:   20:	
+        -:   21:	
+        4:   22:	for (i = 0; i < 3; i ++){
+        3:   23:		printf("what is in hand : %d \n", g.hand[0][i]);
+        -:   24:		
+        -:   25:		//increment handCount when there is a valid card in hand
+        3:   26:		if (g.hand[0][i] >= 0 && g.hand[0][i] <= 26){
+        3:   27:			g.handCount[0]++;
+        -:   28:		}
+        -:   29:	}
+        -:   30:	
+        -:   31:	
+        1:   32:	printf ("I have %d in hand \n",g.handCount[0]);
+        -:   33:	//printf ("numHandCards(&g) is : %d \n", numHandCards(&g));
+        -:   34:	
+        1:   35:	updateCoins(0,&g,5);
+        -:   36:	
+        1:   37:	total = g.coins;
+        1:   38:    printf("total coin is : %d \n", total);
+        -:   39:	
+        1:   40:	assert (total == 11);
+        -:   41:	
+        1:   42:	return 0;
+        -:   43:}
+File 'unittest3.c'
+Lines executed:100.00% of 25
+unittest3.c:creating 'unittest3.c.gcov'
+
+        -:    0:Source:unittest3.c
+        -:    0:Graph:unittest3.gcno
+        -:    0:Data:unittest3.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    0:Source is newer than graph
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:#include <assert.h>
+        -:    8:
+        -:    9:
+        1:   10:int main(){
+        -:   11:	
+        -:   12:	struct gameState g;
+        -:   13:
+        1:   14:	g.hand[0][0] = copper;
+        1:   15:	g.hand[0][1] = silver;
+        1:   16:	g.hand[0][2] = gold;
+        -:   17:	
+        -:   18:	int total; 
+        -:   19:	int i;
+        1:   20:	int money = 0;
+        -:   21:	int r;
+        4:   22:	for (i = 0; i < 3; i ++){
+        3:   23:		printf("what is in hand : %d \n", g.hand[0][i]);
+        -:   24:		
+        -:   25:		//increment handCount when there is a valid card in hand
+        3:   26:		if (g.hand[0][i] >= 0 && g.hand[0][i] <= 26){
+        3:   27:			g.handCount[0]++;
+        -:   28:		}
+        -:   29:	}
+        -:   30:	
+        -:   31:	
+        1:   32:	printf ("I have %d in hand \n",g.handCount[0]);
+        1:   33:	i = 0;
+        5:   34:	while(i<numHandCards(&g)){
+        3:   35:	  if (handCard(i, &g) == copper){
+        1:   36:	    r = playCard(i, -1, -1, -1, &g);
+        1:   37:	    money++;
+        -:   38:	  }
+        2:   39:	  else if (handCard(i, &g) == silver){
+        1:   40:	    r = playCard(i, -1, -1, -1, &g);
+        1:   41:	    money += 2;
+        -:   42:	  }
+        1:   43:	  else if (handCard(i, &g) == gold){
+        1:   44:	    r = playCard(i, -1, -1, -1, &g);
+        1:   45:	    money += 3;
+        -:   46:	  }
+        3:   47:	  i++;
+        -:   48:	}
+        -:   49:	
+        1:   50:	assert(r == -1 || r == 0);
+        1:   51:	printf("playCard Works ! \n");
+        -:   52:	
+        -:   53:	//updateCoins(0,&g,5);
+        -:   54:	
+        -:   55:	//total = g.coins;
+        -:   56:    //printf("total coin is : %d \n", total);
+        -:   57:	
+        -:   58:	//assert (total == 11);
+        -:   59:	
+        1:   60:	return 0;
+        -:   61:}File 'unittest4.c'
+Lines executed:100.00% of 16
+unittest4.c:creating 'unittest4.c.gcov'
+
+        -:    0:Source:unittest4.c
+        -:    0:Graph:unittest4.gcno
+        -:    0:Data:unittest4.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:#include <assert.h>
+        -:    8:
+        -:    9:
+        1:   10:int main(){
+        -:   11:	struct gameState g;
+        -:   12:	int i, ret;
+        1:   13:	g.deckCount[0] = 5;
+        1:   14:	g.handCount[0] = 5;
+        1:   15:	g.discardCount[0] = 5;
+        -:   16:	
+        -:   17:	int c[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
+        1:   18:	       sea_hag, tribute, smithy};
+        -:   19:	
+        -:   20:
+        -:   21:	// put only smith in the deck
+        6:   22:	for (i = 0; i < g.deckCount[0]; i++){
+        5:   23:		g.deck[0][i] = c[9];
+        -:   24:	}
+        -:   25:	
+        -:   26:	//put card in direct relation to c[] indexes
+        6:   27:	for ( i = 0; i < g.handCount[0]; i++){
+        5:   28:		g.hand[0][i] = c[i];
+        -:   29:	}
+        -:   30:	
+        6:   31:	for ( i = 0; i < g.discardCount[0]; i++){
+        5:   32:		g.discard[0][i] = c[i];
+        -:   33:	}
+        -:   34:	
+        -:   35:	
+        1:   36:	ret = fullDeckCount(0,smithy, &g);
+        1:   37:	printf (" ret is %d \n",ret);
+        1:   38:	assert(ret == 5);
+        1:   39:	printf (" fullDeck Count works \n");
+        1:   40:	return 0;
+        -:   41:}File 'cardtest1.c'
+Lines executed:100.00% of 10
+cardtest1.c:creating 'cardtest1.c.gcov'
+
+        -:    0:Source:cardtest1.c
+        -:    0:Graph:cardtest1.gcno
+        -:    0:Data:cardtest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:#include <assert.h>
+        -:    8:
+        -:    9:// int smithyfunc(struct gameState* state, int handPos){
+        -:   10:	
+        -:   11:	// printf("inside smithyfunc\n\n\n\n\n");
+        -:   12:	// int i = 0;
+        -:   13:	// int currentPlayer = whoseTurn(state);
+        -:   14:	 // +3 Cards
+        -:   15:      // for (i = 0; i < 5; i++)
+        -:   16:	// {
+        -:   17:	  // drawCard(currentPlayer, state);
+        -:   18:	// }
+        -:   19:			
+        -:   20:      //discard card from hand
+        -:   21:      // discardCard(handPos, currentPlayer, state, 0);
+        -:   22:      // return 0;
+        -:   23:// }
+        -:   24:
+        1:   25:int main(){
+        -:   26:	struct gameState g;
+        -:   27:	int i, ret;
+        -:   28:	
+        -:   29:	  int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
+        1:   30:	       sea_hag, tribute, smithy};
+        -:   31:
+        1:   32:	printf ("Starting game.\n");
+        -:   33:	
+        1:   34:	initializeGame(2, k, 5, &g);
+        -:   35:		   
+        1:   36:	g.hand[0][0] = smithy;
+        -:   37:	
+        1:   38:	assert(g.handCount[0] == 5);
+        1:   39:	smithyfunc(&g, 0);
+        -:   40:
+        1:   41:	assert(g.handCount[0] == 9);
+        1:   42:	printf ("smithyfunc works \n");
+        1:   43:	return 0;
+        -:   44:}File 'cardtest2.c'
+Lines executed:100.00% of 16
+cardtest2.c:creating 'cardtest2.c.gcov'
+
+        -:    0:Source:cardtest2.c
+        -:    0:Graph:cardtest2.gcno
+        -:    0:Data:cardtest2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:#include <assert.h>
+        -:    8:
+        -:    9:
+        1:   10:int main(){
+        -:   11:	struct gameState g;
+        -:   12:	int i, ret;
+        -:   13:	
+        -:   14:	  int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
+        1:   15:	       sea_hag, tribute,council_room};
+        -:   16:
+        1:   17:	printf ("Starting game.\n");
+        -:   18:	
+        1:   19:	initializeGame(2, k, 5, &g);
+        -:   20:		   
+        1:   21:	g.hand[0][0] = council_room;
+        -:   22:	
+        1:   23:	printf("handcount is %d \n", g.handCount[0]);
+        1:   24:	printf("numBuy is %d \n", g.numBuys);
+        -:   25:	
+        1:   26:	assert(g.handCount[0] == 5);
+        1:   27:	assert(g.numBuys == 1);
+        -:   28:	
+        1:   29:	councilfunc(&g, 0);
+        -:   30:	
+        1:   31:	printf("handcount is %d \n", g.handCount[0]);
+        1:   32:	printf("numBuy is %d \n", g.numBuys);
+        -:   33:	
+        1:   34:	assert(g.handCount[0] == 8);
+        1:   35:	assert(g.numBuys == 2);
+        -:   36:	
+        -:   37:	//assert(g.handCount[0] == 9);
+        1:   38:	printf ("councilfunc works \n");
+        1:   39:	return 0;
+        -:   40:}File 'cardtest3.c'
+Lines executed:100.00% of 18
+cardtest3.c:creating 'cardtest3.c.gcov'
+
+        -:    0:Source:cardtest3.c
+        -:    0:Graph:cardtest3.gcno
+        -:    0:Data:cardtest3.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:#include <assert.h>
+        -:    8:
+        -:    9://note updatecoin function not working expected coin should be 6 but it become 3
+        -:   10:
+        1:   11:int main(){
+        -:   12:	struct gameState g;
+        -:   13:	int i, ret, bonus;
+        1:   14:	bonus = 0;
+        -:   15:	
+        -:   16:	  int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
+        1:   17:	       sea_hag, tribute,smithy};
+        -:   18:
+        1:   19:	printf ("Starting game.\n");
+        -:   20:	
+        1:   21:	initializeGame(2, k, 5, &g);
+        -:   22:		   
+        -:   23:	//g.coins = 0;
+        1:   24:	g.embargoTokens[smithy] = 0;
+        1:   25:	g.hand[0][0] = embargo;
+        -:   26:	
+        1:   27:	printf("handcount is %d \n", g.handCount[0]);
+        1:   28:	printf("coin is %d \n", g.coins);
+        -:   29:	
+        1:   30:	assert(g.handCount[0] == 5);
+        1:   31:	assert(g.coins == 4);
+        -:   32:	
+        -:   33:	//cardEffect(card, choice1, choice2, choice3, state, handPos, &coin_bonus)
+        1:   34:	playCard(0,smithy,-1,-1, &g);
+        -:   35:	//cardeffect(embargo, smithy, -1, -1, &g, 0, &bonus);
+        -:   36:	
+        1:   37:	printf("handcount is %d \n", g.handCount[0]);
+        1:   38:	printf("coin is %d \n", g.coins);
+        -:   39:	
+        1:   40:	assert( g.embargoTokens[smithy] == 1);
+        1:   41:	printf("g.embargoTokens[smithy] is : %d \n", g.embargoTokens[smithy]);
+        -:   42:	
+        -:   43:	//assert(g.handCount[0] == 8);
+        -:   44:	//assert(g.numBuys == 2);
+        -:   45:	
+        -:   46:	//assert(g.handCount[0] == 9);
+        1:   47:	printf ("embargo switch statement works \n");
+        1:   48:	return 0;
+        -:   49:}File 'cardtest4.c'
+Lines executed:100.00% of 14
+cardtest4.c:creating 'cardtest4.c.gcov'
+
+        -:    0:Source:cardtest4.c
+        -:    0:Graph:cardtest4.gcno
+        -:    0:Data:cardtest4.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:#include <assert.h>
+        -:    8:
+        -:    9://note updatecoin function not working expected coin should be 6 but it become 3
+        -:   10:
+        1:   11:int main(){
+        -:   12:	struct gameState g;
+        -:   13:	int i, ret, bonus;
+        1:   14:	bonus = 0;
+        -:   15:	
+        -:   16:	  int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
+        1:   17:	       sea_hag, tribute,smithy};
+        -:   18:
+        1:   19:	printf ("Starting game.\n");
+        -:   20:	
+        1:   21:	initializeGame(2, k, 5, &g);
+        -:   22:		   
+        -:   23:	//g.coins = 0;
+        -:   24:	//g.outpostPlayed = 0;
+        1:   25:	g.hand[0][0] = outpost;
+        -:   26:	
+        1:   27:	printf("handcount is %d \n", g.handCount[0]);
+        1:   28:	printf("g.outpostPlayed is %d \n", g.outpostPlayed);
+        -:   29:	
+        1:   30:	assert(g.handCount[0] == 5);
+        -:   31:
+        -:   32:	
+        -:   33:	//cardEffect(card, choice1, choice2, choice3, state, handPos, &coin_bonus)
+        1:   34:	playCard(0,-1,-1,-1, &g);
+        -:   35:	//cardeffect(embargo, smithy, -1, -1, &g, 0, &bonus);
+        -:   36:	
+        1:   37:	printf("handcount is %d \n", g.handCount[0]);
+        -:   38:	
+        -:   39:	//assert( g.embargoTokens[smithy] == 1);
+        1:   40:	printf("g.outpostPlayed is %d \n", g.outpostPlayed);
+        -:   41:	
+        -:   42:	//assert(g.handCount[0] == 8);
+        -:   43:	//assert(g.numBuys == 2);
+        -:   44:	
+        -:   45:	//assert(g.handCount[0] == 9);
+        1:   46:	printf ("outpost switch statement works \n");
+        1:   47:	return 0;
+        -:   48:}
