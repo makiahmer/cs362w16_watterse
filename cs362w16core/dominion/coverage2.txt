@@ -1,0 +1,61 @@
+Note: To quickly move through unittestresults.out: 
+		Function 1 through 4 are labled with
+			#f1 , ... , #f4
+		Card 1 through 4 are labled with:
+			#c1 , ... , #c4
+
+The functions that I unit tested were:
+    numHandCards()
+		gcov ~ Lines executed: 16.29% of 577
+		Every line of the function has been run.
+		
+    handCard()
+		gcov ~ Lines executed: 18.54% of 577
+		Every line of the function has been run.
+		
+    whoseTurn()
+		gcov ~ Lines executed: 19.24% of 577
+		Every line of the function has been run.
+		
+    kingdomCards()
+		gcov ~ Lines executed: 17.85% of 577
+		Every line of the function has been run.
+		No differences seen in variables when ran.
+		
+The Cards that I unit tested were:
+    Great Hall
+		gcov ~ Lines executed: 26.17% of 577
+		Refactored into a function in assignment 1.
+		Every line of the function has been run.
+		
+	Smithy
+		gcov ~ Lines executed: 23.74% of 577
+		Every line of the smithy switch condition has been run.
+		
+    Village
+		gcov ~ Lines executed: 23.74% of 577
+		Every line of the village switch condition has been run.
+		
+    Council Room
+		gcov ~ Lines executed: 24.44% of 577
+		Every line of the council_room switch condition has been run.
+
+Report:		
+Every output from every function and card logic worked as intended as far as I could tell. However, 
+there were a couple issues that I found outside of the functions I tested that might cause concern 
+for future assignments.
+
+While trying to draw cards until the deck was empty, I would have issues where the for loop would 
+run for i < G.deckCount[player] times. When it was done, I would call the variable again and it 
+would be at 4. Since the problem was outside of the scope of my functions/cards I wasn't able to 
+pin point the issue. My speculation is that there is something wrong with the drawCard() function 
+as that is the only function that was called within the for loop. I was able to circomvent the issue 
+by using a while loop instead and just had it run unti it hit 0 instead of specifying a size to grow to.
+
+Though it never complicated my test as I just needed a recordable and compareable state, the 
+initialization of the player hands didn't have ideal outcomes. In every case, it would give me player 
+1's hand as all 4's and player 2's hand as all 0's. Again, since this function was outside of the 
+scope of my test, I wasn't able to pin down the issue.
+
+Neither of the issues prevented me from testing within the scope of my issues and I was able to complete 
+my assignment.
