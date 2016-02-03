@@ -1,7 +1,7 @@
         -:    0:Source:cardtest2.c
         -:    0:Graph:cardtest2.gcno
         -:    0:Data:cardtest2.gcda
-        -:    0:Runs:3
+        -:    0:Runs:2
         -:    0:Programs:1
         -:    1:#include "dominion.h"
         -:    2:#include "dominion_helpers.h"
@@ -12,34 +12,34 @@
         -:    7:#include <assert.h>
         -:    8:
         -:    9:
-        3:   10:int main(){
+        2:   10:int main(){
         -:   11:	struct gameState g;
         -:   12:	int i, ret;
         -:   13:	
         -:   14:	  int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
-        3:   15:	       sea_hag, tribute,council_room};
+        2:   15:	       sea_hag, tribute,council_room};
         -:   16:
-        3:   17:	printf ("Starting game.\n");
+        2:   17:	printf ("Starting game.\n");
         -:   18:	
-        3:   19:	initializeGame(2, k, 5, &g);
+        2:   19:	initializeGame(2, k, 5, &g);
         -:   20:		   
-        3:   21:	g.hand[0][0] = council_room;
+        2:   21:	g.hand[0][0] = council_room;
         -:   22:	
-        3:   23:	printf("handcount is %d \n", g.handCount[0]);
-        3:   24:	printf("numBuy is %d \n", g.numBuys);
+        2:   23:	printf("handcount is %d \n", g.handCount[0]);
+        2:   24:	printf("numBuy is %d \n", g.numBuys);
         -:   25:	
-        3:   26:	assert(g.handCount[0] == 5);
-        3:   27:	assert(g.numBuys == 1);
+        2:   26:	assert(g.handCount[0] == 5);
+        2:   27:	assert(g.numBuys == 1);
         -:   28:	
-        3:   29:	councilfunc(&g, 0);
+        2:   29:	councilfunc(&g, 0);
         -:   30:	
-        3:   31:	printf("handcount is %d \n", g.handCount[0]);
-        3:   32:	printf("numBuy is %d \n", g.numBuys);
+        2:   31:	printf("handcount is %d \n", g.handCount[0]);
+        2:   32:	printf("numBuy is %d \n", g.numBuys);
         -:   33:	
-        3:   34:	assert(g.handCount[0] == 8);
-        3:   35:	assert(g.numBuys == 2);
+        2:   34:	assert(g.handCount[0] == 8);
+        2:   35:	assert(g.numBuys == 2);
         -:   36:	
         -:   37:	//assert(g.handCount[0] == 9);
-        3:   38:	printf ("councilfunc works \n");
-        3:   39:	return 0;
+        2:   38:	printf ("councilfunc works \n");
+        2:   39:	return 0;
         -:   40:}

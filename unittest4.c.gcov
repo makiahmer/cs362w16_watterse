@@ -1,7 +1,7 @@
         -:    0:Source:unittest4.c
         -:    0:Graph:unittest4.gcno
         -:    0:Data:unittest4.gcda
-        -:    0:Runs:3
+        -:    0:Runs:2
         -:    0:Programs:1
         -:    1:#include "dominion.h"
         -:    2:#include "dominion_helpers.h"
@@ -12,35 +12,35 @@
         -:    7:#include <assert.h>
         -:    8:
         -:    9:
-        3:   10:int main(){
+        2:   10:int main(){
         -:   11:	struct gameState g;
         -:   12:	int i, ret;
-        3:   13:	g.deckCount[0] = 5;
-        3:   14:	g.handCount[0] = 5;
-        3:   15:	g.discardCount[0] = 5;
+        2:   13:	g.deckCount[0] = 5;
+        2:   14:	g.handCount[0] = 5;
+        2:   15:	g.discardCount[0] = 5;
         -:   16:	
         -:   17:	int c[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
-        3:   18:	       sea_hag, tribute, smithy};
+        2:   18:	       sea_hag, tribute, smithy};
         -:   19:	
         -:   20:
         -:   21:	// put only smith in the deck
-       18:   22:	for (i = 0; i < g.deckCount[0]; i++){
-       15:   23:		g.deck[0][i] = c[9];
+       12:   22:	for (i = 0; i < g.deckCount[0]; i++){
+       10:   23:		g.deck[0][i] = c[9];
         -:   24:	}
         -:   25:	
         -:   26:	//put card in direct relation to c[] indexes
-       18:   27:	for ( i = 0; i < g.handCount[0]; i++){
-       15:   28:		g.hand[0][i] = c[i];
+       12:   27:	for ( i = 0; i < g.handCount[0]; i++){
+       10:   28:		g.hand[0][i] = c[i];
         -:   29:	}
         -:   30:	
-       18:   31:	for ( i = 0; i < g.discardCount[0]; i++){
-       15:   32:		g.discard[0][i] = c[i];
+       12:   31:	for ( i = 0; i < g.discardCount[0]; i++){
+       10:   32:		g.discard[0][i] = c[i];
         -:   33:	}
         -:   34:	
         -:   35:	
-        3:   36:	ret = fullDeckCount(0,smithy, &g);
-        3:   37:	printf (" ret is %d \n",ret);
-        3:   38:	assert(ret == 5);
-        3:   39:	printf (" fullDeck Count works \n");
-        3:   40:	return 0;
+        2:   36:	ret = fullDeckCount(0,smithy, &g);
+        2:   37:	printf (" ret is %d \n",ret);
+        2:   38:	assert(ret == 5);
+        2:   39:	printf (" fullDeck Count works \n");
+        2:   40:	return 0;
         -:   41:}

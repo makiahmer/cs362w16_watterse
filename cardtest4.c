@@ -31,8 +31,8 @@ int main(){
 
 	
 	//cardEffect(card, choice1, choice2, choice3, state, handPos, &coin_bonus)
-	playCard(0,-1,-1,-1, &g);
-	//cardeffect(embargo, smithy, -1, -1, &g, 0, &bonus);
+	//playCard(0,-1,-1,-1, &g);
+	cardEffect(embargo, smithy, -1, -1, &g, 0, &bonus);
 	
 	printf("handcount is %d \n", g.handCount[0]);
 	

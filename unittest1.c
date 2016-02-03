@@ -1,8 +1,10 @@
-#include "assert.h"
 #include "dominion.h"
-#include <stdio.h>
+#include "dominion_helpers.h"
 #include "rngs.h"
+#include <stdio.h>
+#include <math.h>
 #include <stdlib.h>
+#include <assert.h>
 
 
 // test to ensure isGameOver works

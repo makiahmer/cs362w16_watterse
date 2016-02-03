@@ -234,46 +234,46 @@
         2:  229:  return 0;
         -:  230:}
         -:  231:
-        1:  232:int playCard(int handPos, int choice1, int choice2, int choice3, struct gameState *state) 
+    #####:  232:int playCard(int handPos, int choice1, int choice2, int choice3, struct gameState *state) 
         -:  233:{	
         -:  234:  int card;
-        1:  235:  int coin_bonus = 0; 		//tracks coins gain from actions
+    #####:  235:  int coin_bonus = 0; 		//tracks coins gain from actions
         -:  236:
         -:  237:  //check if it is the right phase
-        1:  238:  if (state->phase != 0)
+    #####:  238:  if (state->phase != 0)
         -:  239:    {
     #####:  240:      return -1;
         -:  241:    }
         -:  242:	
         -:  243:  //check if player has enough actions
-        1:  244:  if ( state->numActions < 1 )
+    #####:  244:  if ( state->numActions < 1 )
         -:  245:    {
     #####:  246:      return -1;
         -:  247:    }
         -:  248:	
         -:  249:  //get card played
-        1:  250:  card = handCard(handPos, state);
+    #####:  250:  card = handCard(handPos, state);
         -:  251:	
         -:  252:  //check if selected card is an action
-        1:  253:  if ( card < adventurer || card > treasure_map )
+    #####:  253:  if ( card < adventurer || card > treasure_map )
         -:  254:    {
     #####:  255:      return -1;
         -:  256:    }
         -:  257:	
         -:  258:  //play card
-        1:  259:  if ( cardEffect(card, choice1, choice2, choice3, state, handPos, &coin_bonus) < 0 )
+    #####:  259:  if ( cardEffect(card, choice1, choice2, choice3, state, handPos, &coin_bonus) < 0 )
         -:  260:    {
     #####:  261:      return -1;
         -:  262:    }
         -:  263:	
         -:  264:  //reduce number of actions
-        1:  265:  state->numActions--;
+    #####:  265:  state->numActions--;
         -:  266:  
         -:  267://printf("state coin before update coins is % d \n", state->coins);
         -:  268://update coins (Treasure cards may be added with card draws)
-        1:  269:  updateCoins(state->whoseTurn, state, coin_bonus);
+    #####:  269:  updateCoins(state->whoseTurn, state, coin_bonus);
         -:  270:	
-        1:  271:  return 0;
+    #####:  271:  return 0;
         -:  272:}
         -:  273:
     #####:  274:int buyCard(int supplyPos, struct gameState *state) {
@@ -319,9 +319,9 @@
     #####:  314:  return state->handCount[ whoseTurn(state) ];
         -:  315:}
         -:  316:
-        1:  317:int handCard(int handPos, struct gameState *state) {
-        1:  318:  int currentPlayer = whoseTurn(state);
-        1:  319:  return state->hand[currentPlayer][handPos];
+    #####:  317:int handCard(int handPos, struct gameState *state) {
+    #####:  318:  int currentPlayer = whoseTurn(state);
+    #####:  319:  return state->hand[currentPlayer][handPos];
         -:  320:}
         -:  321:
     #####:  322:int supplyCount(int card, struct gameState *state) {
@@ -350,8 +350,8 @@
     #####:  345:  return count;
         -:  346:}
         -:  347:
-        2:  348:int whoseTurn(struct gameState *state) {
-        2:  349:  return state->whoseTurn;
+        1:  348:int whoseTurn(struct gameState *state) {
+        1:  349:  return state->whoseTurn;
         -:  350:}
         -:  351:
     #####:  352:int endTurn(struct gameState *state) {
@@ -1298,29 +1298,29 @@
         -: 1293:    case embargo: 
         -: 1294:      //+2 Coins
         -: 1295:	  //printf("state coin is % d \n", state->coins);
-    #####: 1296:      state->coins = state->coins + 2;
+        1: 1296:      state->coins = state->coins + 2;
         -: 1297:			
         -: 1298:      //see if selected pile is in play
-    #####: 1299:      if ( state->supplyCount[choice1] == -1 )
+        1: 1299:      if ( state->supplyCount[choice1] == -1 )
         -: 1300:	{
     #####: 1301:	  return -1;
         -: 1302:	}
         -: 1303:			
         -: 1304:      //add embargo token to selected supply pile
-    #####: 1305:      state->embargoTokens[choice1]++;
+        1: 1305:      state->embargoTokens[choice1]++;
         -: 1306:			
         -: 1307:      //trash card
-    #####: 1308:      discardCard(handPos, currentPlayer, state, 1);
+        1: 1308:      discardCard(handPos, currentPlayer, state, 1);
         -: 1309:	  //printf("state coin after is % d \n", state->coins);	  
-    #####: 1310:      return 0;
+        1: 1310:      return 0;
         -: 1311:		
         -: 1312:    case outpost:
         -: 1313:      //set outpost flag
-        1: 1314:      state->outpostPlayed++;
+    #####: 1314:      state->outpostPlayed++;
         -: 1315:			
         -: 1316:      //discard card
-        1: 1317:      discardCard(handPos, currentPlayer, state, 0);
-        1: 1318:      return 0;
+    #####: 1317:      discardCard(handPos, currentPlayer, state, 0);
+    #####: 1318:      return 0;
         -: 1319:		
         -: 1320:    case salvager:
         -: 1321:      //+1 buy
@@ -1389,8 +1389,8 @@
         1: 1384:  if (trashFlag < 1)
         -: 1385:    {
         -: 1386:      //add card to played pile
-        1: 1387:      state->playedCards[state->playedCardCount] = state->hand[currentPlayer][handPos]; 
-        1: 1388:      state->playedCardCount++;
+    #####: 1387:      state->playedCards[state->playedCardCount] = state->hand[currentPlayer][handPos]; 
+    #####: 1388:      state->playedCardCount++;
         -: 1389:    }
         -: 1390:	
         -: 1391:  //set played card to -1
@@ -1457,25 +1457,25 @@
     #####: 1452:  return 0;
         -: 1453:}
         -: 1454:
-        2: 1455:int updateCoins(int player, struct gameState *state, int bonus)
+        1: 1455:int updateCoins(int player, struct gameState *state, int bonus)
         -: 1456:{
         -: 1457:  int i;
         -: 1458:	
         -: 1459:  //reset coin count
-        2: 1460:  state->coins = 0;
+        1: 1460:  state->coins = 0;
         -: 1461:
         -: 1462:  //add coins for each Treasure card in player's hand
-       11: 1463:  for (i = 0; i < state->handCount[player]; i++)
+        6: 1463:  for (i = 0; i < state->handCount[player]; i++)
         -: 1464:    {
-        9: 1465:      if (state->hand[player][i] == copper)
+        5: 1465:      if (state->hand[player][i] == copper)
         -: 1466:	{
-        7: 1467:	  state->coins += 1;
+        4: 1467:	  state->coins += 1;
         -: 1468:	}
-        2: 1469:      else if (state->hand[player][i] == silver)
+        1: 1469:      else if (state->hand[player][i] == silver)
         -: 1470:	{
     #####: 1471:	  state->coins += 2;
         -: 1472:	}
-        2: 1473:      else if (state->hand[player][i] == gold)
+        1: 1473:      else if (state->hand[player][i] == gold)
         -: 1474:	{
     #####: 1475:	  state->coins += 3;
         -: 1476:	}	
@@ -1484,13 +1484,13 @@
         -: 1479:  //add bonus
         -: 1480:	//printf ("bonus is %d \n", bonus);
         -: 1481:	//printf("state coin before adding bonus % d \n", state->coins);
-        2: 1482:	state->coins += bonus;
+        1: 1482:	state->coins += bonus;
         -: 1483:	//printf("state coin after adding bonus % d \n", state->coins);
         -: 1484:
         -: 1485:  // debugg statement
         -: 1486:  //printf("total coins : %d \n", state->coins);
         -: 1487:
-        2: 1488:  return 0;
+        1: 1488:  return 0;
         -: 1489:}
         -: 1490:
         -: 1491:
