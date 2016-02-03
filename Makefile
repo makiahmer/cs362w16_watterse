@@ -65,7 +65,7 @@ card4:
 	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c cardtest4.c rngs.c -o cardtest4 -lm -g
 
 
-myTest:
+unittestresult:
 	./unittest1 &> unittestresult.out
 	./unittest2 >> unittestresult.out
 	./unittest3 >> unittestresult.out
@@ -90,8 +90,8 @@ myTest:
 	cat cardtest3.c.gcov >> unittestresult.out
 	gcov cardtest4.c >> unittestresult.out
 	cat cardtest4.c.gcov >> unittestresult.out
-	#gcov dominion.c >> unittestresult.out
-	#cat dominion.c.gcov >> unittestresult.out
+	gcov dominion.c >> unittestresult.out
+	cat dominion.c.gcov >> unittestresult.out
 
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)

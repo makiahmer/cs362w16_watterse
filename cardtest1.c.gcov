@@ -1,7 +1,7 @@
         -:    0:Source:cardtest1.c
         -:    0:Graph:cardtest1.gcno
         -:    0:Data:cardtest1.gcda
-        -:    0:Runs:1
+        -:    0:Runs:3
         -:    0:Programs:1
         -:    1:#include "dominion.h"
         -:    2:#include "dominion_helpers.h"
@@ -27,23 +27,23 @@
         -:   22:      // return 0;
         -:   23:// }
         -:   24:
-        1:   25:int main(){
+        3:   25:int main(){
         -:   26:	struct gameState g;
         -:   27:	int i, ret;
         -:   28:	
         -:   29:	  int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
-        1:   30:	       sea_hag, tribute, smithy};
+        3:   30:	       sea_hag, tribute, smithy};
         -:   31:
-        1:   32:	printf ("Starting game.\n");
+        3:   32:	printf ("Starting game.\n");
         -:   33:	
-        1:   34:	initializeGame(2, k, 5, &g);
+        3:   34:	initializeGame(2, k, 5, &g);
         -:   35:		   
-        1:   36:	g.hand[0][0] = smithy;
+        3:   36:	g.hand[0][0] = smithy;
         -:   37:	
-        1:   38:	assert(g.handCount[0] == 5);
-        1:   39:	smithyfunc(&g, 0);
+        3:   38:	assert(g.handCount[0] == 5);
+        3:   39:	smithyfunc(&g, 0);
         -:   40:
-        1:   41:	assert(g.handCount[0] == 9);
-        1:   42:	printf ("smithyfunc works \n");
-        1:   43:	return 0;
+        3:   41:	assert(g.handCount[0] == 9);
+        3:   42:	printf ("smithyfunc works \n");
+        3:   43:	return 0;
         -:   44:}
