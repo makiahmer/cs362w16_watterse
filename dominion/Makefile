@@ -80,7 +80,7 @@ myTest:
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
 
-runtests: testDrawCard 
+runtests: testDrawCard
 	./testDrawCard &> unittestresult.out
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
@@ -89,7 +89,118 @@ runtests: testDrawCard
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
 
+# =======================================================================
+# Makiah Merritt, CS 362 Assignment 2
+# Unit Tests
+merrittm_unittest1: ./assign2/unittest1.c dominion.o rngs.o
+	gcc -o merrittm_unittest1 -g  ./assign2/unittest1.c dominion.o rngs.o $(CFLAGS)
+
+merrittm_unittest2: ./assign2/unittest2.c dominion.o rngs.o
+	gcc -o merrittm_unittest2 -g  ./assign2/unittest2.c dominion.o rngs.o $(CFLAGS)
+
+merrittm_unittest3: ./assign2/unittest3.c dominion.o rngs.o
+	gcc -o merrittm_unittest3 -g  ./assign2/unittest3.c dominion.o rngs.o $(CFLAGS)
+
+merrittm_unittest4: ./assign2/unittest4.c dominion.o rngs.o
+	gcc -o merrittm_unittest4 -g  ./assign2/unittest4.c dominion.o rngs.o $(CFLAGS)
+
+# Card Tests
+merrittm_cardtest1: ./assign2/cardtest1.c dominion.o rngs.o
+	gcc -o merrittm_cardtest1 -g  ./assign2/cardtest1.c dominion.o rngs.o $(CFLAGS)
+
+merrittm_cardtest2: ./assign2/cardtest2.c dominion.o rngs.o
+	gcc -o merrittm_cardtest2 -g  ./assign2/cardtest2.c dominion.o rngs.o $(CFLAGS)
+
+merrittm_cardtest3: ./assign2/cardtest3.c dominion.o rngs.o
+	gcc -o merrittm_cardtest3 -g  ./assign2/cardtest3.c dominion.o rngs.o $(CFLAGS)
+
+merrittm_cardtest4: ./assign2/cardtest4.c dominion.o rngs.o
+	gcc -o merrittm_cardtest4 -g  ./assign2/cardtest4.c dominion.o rngs.o $(CFLAGS)
+
+
+# Make and run all tests:
+assign2: merrittm_unittest1 merrittm_unittest2 merrittm_unittest3 merrittm_unittest4 merrittm_cardtest1 merrittm_cardtest2 merrittm_cardtest3 merrittm_cardtest4
+	rm -f ./assign2/merrittm_unittestresult.txt
+	echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> ./assign2/merrittm_unittestresult.txt
+	echo -n "Unit Testing - Assign 2 - Run: " >> ./assign2/merrittm_unittestresult.txt
+	date >> ./assign2/merrittm_unittestresult.txt
+	echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" >> ./assign2/merrittm_unittestresult.txt
+
+	merrittm_unittest1
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	echo "merrittm_unittest1" >> ./assign2/merrittm_unittestresult.txt
+	gcov ./dominion.c >> ./assign2/merrittm_unittestresult.txt
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	cat dominion.c.gcov >> ./assign2/merrittm_unittestresult.txt
+	echo >> ./assign2/merrittm_unittestresult.txt
+
+	merrittm_unittest2
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	echo "merrittm_unittest2" >> ./assign2/merrittm_unittestresult.txt
+	gcov ./dominion.c >> ./assign2/merrittm_unittestresult.txt
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	cat dominion.c.gcov >> ./assign2/merrittm_unittestresult.txt
+	echo >> ./assign2/merrittm_unittestresult.txt
+
+
+	merrittm_unittest3
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	echo "merrittm_unittest3" >> ./assign2/merrittm_unittestresult.txt
+	gcov ./dominion.c >> ./assign2/merrittm_unittestresult.txt
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	cat dominion.c.gcov >> ./assign2/merrittm_unittestresult.txt
+	echo >> ./assign2/merrittm_unittestresult.txt
+
+
+	merrittm_unittest4
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	echo "merrittm_unittest4" >> ./assign2/merrittm_unittestresult.txt
+	gcov ./dominion.c >> ./assign2/merrittm_unittestresult.txt
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	cat dominion.c.gcov >> ./assign2/merrittm_unittestresult.txt
+	echo >> ./assign2/merrittm_unittestresult.txt
+
+
+	merrittm_cardtest1
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	echo "merrittm_cardtest1" >> ./assign2/merrittm_unittestresult.txt
+	gcov ./dominion.c >> ./assign2/merrittm_unittestresult.txt
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	cat dominion.c.gcov >> ./assign2/merrittm_unittestresult.txt
+	echo >> ./assign2/merrittm_unittestresult.txt
+
+
+	merrittm_cardtest2
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	echo "merrittm_cardtest2" >> ./assign2/merrittm_unittestresult.txt
+	gcov ./dominion.c >> ./assign2/merrittm_unittestresult.txt
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	cat dominion.c.gcov >> ./assign2/merrittm_unittestresult.txt
+	echo >> ./assign2/merrittm_unittestresult.txt
+
+
+	merrittm_cardtest3
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	echo "merrittm_cardtest3" >> ./assign2/merrittm_unittestresult.txt
+	gcov ./dominion.c >> ./assign2/merrittm_unittestresult.txt
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	cat dominion.c.gcov >> ./assign2/merrittm_unittestresult.txt
+	echo >> ./assign2/merrittm_unittestresult.txt
+
+
+	merrittm_cardtest4
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	echo "merrittm_cardtest4" >> ./assign2/merrittm_unittestresult.txt
+	gcov ./dominion.c >> ./assign2/merrittm_unittestresult.txt
+	echo "=================================================" >> ./assign2/merrittm_unittestresult.txt
+	cat dominion.c.gcov >> ./assign2/merrittm_unittestresult.txt
+	echo >> ./assign2/merrittm_unittestresult.txt
+
+# =======================================================================
+
 all: playdom player testDrawCard testBuyCard badTestDrawCard
 
 clean:
-	rm -f *.o playdom.exe playdom test.exe test player unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 player.exe testInit testInit.exe *.gcov *.gcda *.gcno *.so
+	clear
+	# Removing Files
+	rm -f -v *.o playdom.exe playdom test.exe test player unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 player.exe testInit testInit.exe *.gcov *.gcda *.gcno *.so merrittm_unittest1 merrittm_unittest2 merrittm_unittest3 merrittm_unittest4 merrittm_cardtest1 merrittm_cardtest2 merrittm_cardtest3 merrittm_cardtest4
