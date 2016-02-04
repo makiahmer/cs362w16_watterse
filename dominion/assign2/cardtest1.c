@@ -3,6 +3,7 @@
 ** File Location:	dominion/assign2/
 ** Author		:	Makiah Merritt
 ** Created		:	02/03/2016
+** Formatting	:	Consolas 10pt with tabs sized at 4 spaces
 ** Description	:	A unit test for the steward card effect implemented
 **				:	in dominion.c
 ** Input		:	N/A

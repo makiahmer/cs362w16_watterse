@@ -3,6 +3,7 @@
 ** File Location:	dominion/assign2/
 ** Author		:	Makiah Merritt
 ** Created		:	01/29/2016
+** Formatting	:	Consolas 10pt with tabs sized at 4 spaces
 ** Description	:	A unit test for the playCard function implemented
 **				:	in dominion.c
 ** Input		:	N/A
