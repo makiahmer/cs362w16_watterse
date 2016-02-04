@@ -1,0 +1,13 @@
+Makiah Merritt
+CS 362
+Hmwk 1
+
+=================================== CARD REFACTORING ======================================
+While moving the card effects I looked for ways the code could be modified in a new function.
+However, everything seemed pretty straight forward so IF I changed/modified anything it would
+have only been a comment here or there. Maybe a variable change.
+	- cardEffect_Adventurer
+	- cardEffect_CouncilRoom
+	- cardEffect_Feast
+	- cardEffect_Gardens
+	- cardEffect_Mine
