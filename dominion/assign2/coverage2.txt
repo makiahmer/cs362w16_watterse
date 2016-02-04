@@ -1,0 +1,15 @@
+Makiah Merritt
+CS 362
+
+===================================== Testing Results ======================================
+The tests that I wrote covered 20-38% of dominion.c. I believe this is because each test was
+focused on a particular aspect (i.e. one function) vs full peices of code (i.e. the function 
+and a normal implementation). Throughout my testing I found a short lived bug that I 
+created during homework 1, where after moving card effects I return a value from their 
+function but I had overlooked returning the value returned by that function in the large
+switch statement. The tests that I wrote were written with the goal of making sure that the
+action being performed was the desired/expected action's. Thus if a condition is supposed to
+fail when passed to that function I pass that condition inside my test block. To a degree I
+believe this helps in the codes confidence, however, unlike my some of my counterparts in 
+this class I didn't write the tests to utilize randomized testing which would've ensured a 
+much larger confidence in the code.
