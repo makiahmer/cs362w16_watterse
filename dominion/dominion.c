@@ -5,6 +5,13 @@
 #include <math.h>
 #include <stdlib.h>
 
+/* Assignment 1 Card Refactoring */
+int cardEffect_Adventurer(int drawntreasure, int currentPlayer, int cardDrawn, int temphand[], struct gameState *state);
+int cardEffect_CouncilRoom(int currentPlayer, int handPos, struct gameState *state);
+int cardEffect_Feast(int currentPlayer, int temphand[], int choice1, struct gameState *state);
+int cardEffect_Gardens();
+int cardEffect_Mine(int currentPlayer, int choice1, int choice2, int handPos, struct gameState *state);
+
 int compare(const void* a, const void* b) {
 	if (*(int*)a > *(int*)b)
 		return 1;
@@ -166,10 +173,10 @@ struct gameState *state) {
 		state->handCount[i] = 0;
 		state->discardCount[i] = 0;
 		//draw 5 cards
-		// for (j = 0; j < 5; j++)
-		//	{
-		//	 drawCard(i, state);
-		//	}
+		//for (j = 0; j < 5; j++)
+		//{
+		//	drawCard(i, state);
+		//}
 	}
 
 	//set embargo tokens to 0 for all supply piles
@@ -671,7 +678,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 	switch (card)
 	{
 	case adventurer:
-		cardEffect_Adventurer(drawntreasure, currentPlayer, cardDrawn, temphand, state);
+		return cardEffect_Adventurer(drawntreasure, currentPlayer, cardDrawn, temphand, state);
 		/*	Re-factored Code:
 		while (drawntreasure < 2) {
 			if (state->deckCount[currentPlayer] < 1) {//if the deck is empty we need to shuffle discard and add to deck
@@ -695,7 +702,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		*/
 
 	case council_room:
-		cardEffect_CouncilRoom(currentPlayer, handPos, state);
+		return cardEffect_CouncilRoom(currentPlayer, handPos, state);
 		/*	Re-factored Code:
 		//+4 Cards
 		for (i = 0; i < 4; i++)
@@ -722,7 +729,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		*/
 
 	case feast:
-		cardEffect_Feast(currentPlayer, temphand, choice1, state);
+		return cardEffect_Feast(currentPlayer, temphand, choice1, state);
 		/*	Re-factored Code:
 		//gain card with cost up to 5
 		//Backup hand
@@ -778,13 +785,13 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		*/
 
 	case gardens:
-		cardEffect_Gardens();
+		return cardEffect_Gardens();
 		/*	Re-factored Code:
 		return -1;
 		*/
 
 	case mine:
-		cardEffect_Mine(currentPlayer, choice1, choice2, handPos, state);
+		return cardEffect_Mine(currentPlayer, choice1, choice2, handPos, state);
 		/*	Re-factored Code:
 		j = state->hand[currentPlayer][choice1]; //store card we will trash
 
@@ -1399,12 +1406,12 @@ int cardEffect_Feast(int currentPlayer, int temphand[], int choice1, struct game
 }
 
 int cardEffect_Gardens() {
-	return 0;
+	return 1;
 }
 
 int cardEffect_Mine(int currentPlayer, int choice1, int choice2, int handPos, struct gameState *state) {
 	int i = 0, j = 0;
-	
+
 	j = state->hand[currentPlayer][choice1]; //store card we will trash
 
 	if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold)
