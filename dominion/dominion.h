@@ -127,13 +127,4 @@ int scoreFor(int player, struct gameState *state);
 int getWinners(int players[MAX_PLAYERS], struct gameState *state);
 /* Set array position of each player who won (remember ties!) to
    1, others to 0 */
-
-/* Assignment 1 Card Refactoring */
-int cardEffect_Adventurer(int drawntreasure, int currentPlayer, int cardDrawn, int temphand[], struct gameState *state);
-int cardEffect_CouncilRoom(int currentPlayer, int handPos, struct gameState *state);
-int cardEffect_Feast(int currentPlayer, int temphand[], int choice1, struct gameState *state);
-int cardEffect_Gardens();
-int cardEffect_Mine(int currentPlayer, int choice1, int choice2, int handPos, struct gameState *state);
-
-
 #endif
