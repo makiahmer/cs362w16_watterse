@@ -727,7 +727,6 @@ int adventurerfunc( struct gameState* state){
 	z=z-1;
       }
 	  
-	  printf("inside adventurer function\n\n\n\n\n");
       return 0;
 	
 	
