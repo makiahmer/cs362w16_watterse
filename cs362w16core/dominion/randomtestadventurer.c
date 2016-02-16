@@ -1,114 +1,169 @@
+//##################################################
+//##  This program tests the dominion card Adventurer
+//##
+
+//##	TO RUN THIS PROGRAM WITH THE CURRENT MAKEFILE:
+//##	Type into the terminal: make runAdventurer
+
+
 #include "dominion.h"
-#include "rngs.h"
+#include "dominion_helpers.h"
+#include <string.h>
 #include <stdio.h>
+#include <assert.h>
+#include "rngs.h"
 #include <math.h>
 #include <stdlib.h>
-#include <assert.h>
+#include <time.h>
 
-#define MAX_TESTS 12
+#define MAX_TESTS 10000
 
-//This randomly tests Adventurer
-
-int main() {
-
-	  int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
-	       sea_hag, tribute, smithy};
-
-	  int i, j, n, players, player, handCount, deckCount, seed, address;
-	  //struct gameState state;
-	  struct gameState state;
-	  struct gameState stat;
-	  struct gameState sta;
-
-	  printf("Running Random Adventurer Test\n");
-
-	  /*
-										--- Author's Note ---
-	  So, I had problems running out of memory when I used the same gameState variable more than 12 times, and
-	  I honestly don't know why. I momentarily solved this problem by adding more for loops and creating more gamestates;
-	  I was still able to get decent coverage, though not up to the amount of tests I originally had in mind.
-
-	  */
-
-	  for (i = 0; i < MAX_TESTS; i++) {
-
-	   players = rand() % 4;
-
-	   seed = rand();		//pick random seed
+int runDiscardTest(struct gameState G){
+	
+	//set game state and random variables.
+	int player = G.whoseTurn;
+	
+	int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, sea_hag, tribute, smithy};
+	initializeGame(2, k, 1, &G);
+	
+	G.deckCount[player] = rand() % MAX_DECK; //Pick random deck size out of MAX DECK size
+	
+	int deckZero = rand() % 10;
+	if(deckZero == 0){
+		G.deckCount[player] = 0;
+	}
+	else if(deckZero == 10){
+		G.deckCount[player] = MAX_DECK;
+	}
+	
+	//make the deck random
+	int tempDeckCount = G.deckCount[player];
+	int t;
+	for(t = 0; t < tempDeckCount; t++){
+		G.deck[player][t] = rand() % treasure_map;
+	}
+	
+	G.handCount[player] = rand() % MAX_HAND;
+	
+	int tempDiscard = G.discardCount[player];
+	int discardedCards = 0;
+	
+	int check;
+	int i;
+	
+	//attempt to run the cards multiple times
+	for(i = 0; i < 10; i++){
+		check = cardEffect(adventurer, 1, 1, 1, &G, 0, 0);
 		
-	   initializeGame(players, k, seed, &state);	//initialize Gamestate 
+		//check if a cardEffect didn't work correctly
+		if(check == -1){
+			return 1;
+		}
+		int u;
+		int currencyCount = 0;
+		//find how many currency cards have been discarded.
+		for(u = tempDiscard; u < G.discardCount[player]; u++){
+			discardedCards++;
+			if(G.discard[player][u] == gold || G.hand[player][u] == silver || G.hand[player][u] == copper){
+				currencyCount++;
+			}
+		}
+		if(currencyCount > 0){ //if we have any that have been discarded, a bug
+			return 5;
+		}
+		if(2 + G.deckCount[player] + discardedCards != tempDeckCount){ // if we have an off number of cards, a bug
+			return 6;
+		}
+	}
+	
+	return 0;
+}
 
-	   //Initiate valid state variables
-		  state.deckCount[player] = rand() % MAX_DECK; //Pick random deck size out of MAX DECK size
-		  state.discardCount[player] = rand() % MAX_DECK;
-		  state.handCount[player] = rand() % MAX_HAND;
+int runHandTest(struct gameState G){
+	int player = G.whoseTurn;
+	
+	int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, sea_hag, tribute, smithy};
+	initializeGame(2, k, 1, &G);
+	
+	G.deckCount[player] = rand() % MAX_DECK; //Pick random deck size out of MAX DECK size
+	
+	int deckZero = rand() % 10;
+	if(deckZero == 0){
+		G.deckCount[player] = 0;
+	}
+	else if(deckZero == 10){
+		G.deckCount[player] = MAX_DECK;
+	}
+	
+	//make the deck random
+	int tempDeckCount = G.deckCount[player];
+	int t;
+	for(t = 0; t < tempDeckCount; t++){
+		G.deck[player][t] = rand() % treasure_map;
+	}
+	
+	G.handCount[player] = rand() % MAX_HAND;
+	int tempHandCount = G.handCount[player];
+	
+	int check;
+	int i;
+	//attempt to run the cards multiple times
+	for(i = 0; i < 10; i++){
+		check = cardEffect(adventurer, 1, 1, 1, &G, 0, 0);
+		//check if a cardEffect didn't work correctly
+		if(check == -1){
+			return 1;
+		}
+		if(G.hand[player][G.handCount[player]-1] != copper && G.hand[player][G.handCount[player]-1] != silver && G.hand[player][G.handCount[player]-1] != gold){
+			if(G.deckCount[player] != 0){
+				return 2;
+			}
+		}
+		int u;
+		int currencyCount = 0;
+		//find how many currency cards have been drawn
+		for(u = tempHandCount; u < MAX_HAND; u++){
+			if(G.hand[player][u] == gold || G.hand[player][u] == silver || G.hand[player][u] == copper){
+				currencyCount++;
+			}
+		}
+		if(currencyCount < 2 && G.deckCount[player] != 0){ // if there aren't enough currency cards in hand and there are cards in the deck, a bug
+			return 3;
+		}
+		if(currencyCount > 2){ // if there are too many currency cards, a bug
+			return 4;
+		}
+	}
+	
+	return 0;
+}
 
-
-		  //Copy state variables
-		  handCount = state.handCount[player];
-		  deckCount = state.deckCount[player];
-
-		  //1 in 3 chance of making empty deck for coverage
-		  if (seed % 3 == 0) {
-
-			state.deckCount[player] = 0;
-		  }
-		  cardEffect(adventurer, 1, 1, 1, &state);		//Run adventurer card
-	  }
-	  
-	   for (i = 0; i < MAX_TESTS; i++) {
-
-  		  players = rand() % 4;
-		  seed = rand();		//pick random seed
-		
-		  initializeGame(players, k, seed, &stat);	//initialize Gamestate
-
-		  //Initiate valid state variables
-		  stat.deckCount[player] = rand() % MAX_DECK; //Pick random deck size out of MAX DECK size
-		  stat.discardCount[player] = rand() % MAX_DECK;
-		  stat.handCount[player] = rand() % MAX_HAND;
-
-
-		  //Copy state variables
-		  handCount = stat.handCount[player];
-		  deckCount = stat.deckCount[player];
-
-		  //1 in 3 chance of making empty deck for coverage
-		  if (seed % 3 == 0) {
-
-			stat.deckCount[player] = 0;
-		  }
-
-		  cardEffect(adventurer, 1, 1, 1, &stat);		//Run adventurer card
-	  }
-
-	   for (i = 0; i < MAX_TESTS; i++) {
-
-  		  players = rand() % 4;
-		  seed = rand();		//pick random seed
-		
-		  initializeGame(players, k, seed, &sta);	//initialize Gamestate
-
-		  //Initiate valid state variables
-		  sta.deckCount[player] = rand() % MAX_DECK; //Pick random deck size out of MAX DECK size
-		  sta.discardCount[player] = rand() % MAX_DECK;
-		  sta.handCount[player] = rand() % MAX_HAND;
-
-
-		  //Copy state variables
-		  handCount = sta.handCount[player];
-		  deckCount = sta.deckCount[player];
-
-		  //1 in 3 chance of making empty deck for coverage
-		  if (seed % 3 == 0) {
-
-			sta.deckCount[player] = 0;
-		  }
-		  cardEffect(adventurer, 1, 1, 1, &sta);		//Run adventurer card
-
-	   }
-
-	  printf("Tests Complete\n");
-
-	  return 0;
+int main(){
+	srand(time(NULL));	
+	int i;
+	int temp = 0;
+	int printFailure[7];
+	
+	for(i = 0; i < 7; i++){
+		printFailure[i] = 0;
+	}
+	
+	for(i = 0; i < MAX_TESTS; i++){
+		struct gameState G;
+		temp = runHandTest(G);
+		printFailure[temp] = printFailure[temp] + 1;
+		temp = runDiscardTest(G);
+		printFailure[temp] = printFailure[temp] + 1;
+	}
+	printf("\n------------------------------------------------------\n\n");
+	printf("Testing adventurer dominion card\n");
+	printf("results in number of times the problem occured: \n\n");
+	
+	printf("CardEffect() returned -1: %d\n", printFailure[1]);
+	printf("Last card drawn in players hand isn't a currency card and there are cards left in deck: %d\n", printFailure[2]);
+	printf("There are less than two currency cards in the drawn cards and there are cards left in deck: %d\n", printFailure[3]);
+	printf("There are more than 2 currency cards in the drawn cards: %d\n", printFailure[4]);
+	printf("CardEffect() discarded at least 1 currency card: %d\n", printFailure[5]);
+	printf("The sum of all cards interacted with do not total what was originally in the deck: %d\n\n", printFailure[6]);
+	return 0;
 }
