@@ -1,0 +1,56 @@
+Makiah Merritt
+CS 362
+Assignment 3
+
+--------------------------------------------------------------------------------------------
+Overview
+--------------------------------------------------------------------------------------------
+I'm running windows 10 on a Lenovo T420 as such I was able to get past the 12 test max 
+described in randomtestadventurer.c; of course it took some muddling to get it not to crash
+and unfortunately I didn't keep track of everything that I changed, although that wasn't much.
+Because the game state was easier to analyze post card effect I believe remodel to be the 
+better test as I can gurantee that everything which was supposed to change, regardless of 
+input, did. With adventurer being able to shuffle through the players hand and discard as 
+necessary I couldn't gurantee any action except the final result.
+
+Edit: Randomtestadventurer is now broken again. It seems (for me) that hand and discard are
+both getting trashed beyond what we do at initialization. Both counts will go to 0 and when
+we go to correct hand < 1, in drawcard, there's nothing to move from discard into hand, thus
+both remain unusable.
+
+Edit2: After some finagling (not actually changing anything) I was able to get adventurer
+to run on the server.
+
+
+--------------------------------------------------------------------------------------------
+Random Test - Adventurer
+--------------------------------------------------------------------------------------------
+The first thing I noticed about the random adventurer test was that it was simply running 
+the cards effect without actually checking whether the card was functioning properly. Thus,
+the only thing it provided was to see if the program would crash with junk data in the game
+state (nothing being initialized besides the required fields). Beyond that the test didn't
+seem to usefull, this was confirmed by a later email to the class describing that the test 
+wouldn't do well because it lacked an oracle.
+
+
+--------------------------------------------------------------------------------------------
+Random Test - Remodel
+--------------------------------------------------------------------------------------------
+When developing the random test for remodel I followed/used the ideas behind the provided
+random adventurer test had, inc. the game state randomization. Then once I had it running 
+through tests properly I added the validation checks to see whether the actions it took were 
+the expected ones, i.e. whether or not the cards effect ran or it exited the function with a 
+fault.
+
+Gcov analysis:
+After running my remodel random test I ran gcov on dominion.c and had the following results.
+
+	flip2 ~/devarea/cs362/dominion 122% gcov dominion.c
+	File 'dominion.c'
+	Lines executed:20.52% of 580
+	dominion.c:creating 'dominion.c.gcov'
+	
+I believe the only reason my remodel gets an ~4% gcov increase over the adventurer test is
+because it used the playCard function to test the card vs. calling cardEffect by itself. I 
+had to go with the former because VS wouldn't recognize a call to cardEffect outside of
+dominion.c.
