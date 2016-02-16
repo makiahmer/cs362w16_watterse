@@ -1,0 +1,17 @@
+
+------------------------------------------------------
+
+Testing Great Hall dominion card
+results in number of times the problem occured: 
+
+CardEffect() returned -1: 0
+The player doesn't contain the right number of actions: 24
+The discard pile doesn't have the correct number of cards in it: 10000
+The sum between deck and discard isn't correct: 0
+The hand count did not increment by 1: 1194
+The deck count did not decriment by 1: 0
+
+File 'dominion.c'
+Lines executed:22.53% of 577
+dominion.c:creating 'dominion.c.gcov'
+

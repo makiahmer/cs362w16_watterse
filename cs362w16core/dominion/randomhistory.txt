@@ -1,0 +1,130 @@
+Sunday, Febuary 7th
+    Starting on the assignment a little late but I think I'm off to a good start.
+    With the inclussion of the randomtestadventurer.c file, it will give me a good idea
+    of what all I'll need to do. Inside of the file there is a giant comment that tells
+    me that it's having issues with random tests larger than 12 itterations due to memory
+    limitations. I tested it at 13 run and at 15 runs and 15 runs killed the program. So
+    it's not a false comment. After I ran the program, I took a look over it and found 
+    that it was only ever initiallizing the games and never setting the game states back
+    to a set possition. That's quite a bit of content for the server to handle, so at some
+	point I need to find a way to reformat the content after each itteration of the test.
+
+	Looking at the cardEffect function call in randomtestdventurer.c, I found that it's 
+	calling the function with fewer parameters than usual. I'm not sure why it's not 
+	throwing a fit. The reason why I stumbled on this was because the compiler was telling 
+	me that I had a warning of an implicit function declaration. So I tried to prototype it,
+	and the prototype killed the ability to call the function. Stating of course that there
+	are too few parameters. I'm really not sure what's going with it but currently it's not 
+	taking in a hand possition or the bonus coin int. The next step for me is to see what 
+	will happen when I add those parameters. Maybe something will break.
+	
+	I've changed the cardEffect function call to take in both the hand count and the bonus 
+	coin, but I also changed my last compiler warning as well. I think I might of jumped 
+	ahead of myself a bit. The compiler warning was for the an improperly used int variable 
+	that wasn't being set to a number before being used. I set it to 0 and now I'm able to 
+	run a test count up to exactly 74 max tests on a single gamestate. I'm not sure if that's
+	due to the player variable change, or the prototype change. My next step is to jump into 
+	the logic of the for loops and see if I can't piece together what their trying to accomplish.
+
+Monday, Febuary 8th
+	I refactored the given randomtestdventurer.c to include a function in hopes that the scope 
+	of the memory issue would solve the problem. Unfortunately that didn't happen and I'm still 
+	stuck with a faulty program. Deppending on how much longer I keep fighting with this issue
+	I might need to just start completely fresh. For now, I'm going to try and set all variables 
+	within the gamestate to what the base game would be.
+	
+	After screwing with it for a minute, I realized that it's killing itself on where the card is 
+	called. So there could easily be an out of bounds error bassed on a variable that isn't getting
+	reset with initializeGame(). 
+	
+Tuesday, Febuary 9th
+	Today has been a strange in terms of testing. I found out that randomtestadventure.c calls the 
+	adventurer card in a weird way that causes the currentPlayer variable to change from 0 to -1, 
+	then from -1 to max size of int. I couldn't for the life of me figure out why that was happening
+	but I was able to construct a a completely new test based on how I constructed my last 
+	assignments unit tests. After running it a few times at various itteration lengths, I wasn't 
+	able to reproduce the seg fault. Going forward, I wish I could of figured out what was happening,
+	but the my program is working as intended and I will keep with it. Tomorrow I plan to look over
+	what I need to randomize and how large the randoms need to be.
+	
+Thursday, Febuary 11th
+	The last 2 days have been incredibly productive. Since deciding on developing my own version of 
+	the program, I spent some time looking at what was being tested in the previous one. What was 
+	probably the most important factor that I took from the previous test was the random conditions.
+	They had them stop at defined constants that were the sizes of the arrays in dominion.h. So things
+	like the randomization of the hand count or deck count could be less than the size of the max array
+	size. It also pointed out that the chance of the deck count being initialized 0 would be very slim.
+	
+	What I added however, were the actual conditionals to test the problems. Otherwise I would just be
+	checking for seg faults. I also had to split my testing into multiple functions as my way of 
+	tracking issues was to stop an iteration as soon as an error occured or else the data would be 
+	working with a bad game state and skewing the data. So I split it into two functions. One function
+	checks states of the hand and deck where each condition adds more complexity to the check. Starting
+	with the last card drawn, I check to see if it's a currency card, if it is, then I check to see if
+	there is another currency card within the cards drawn before it. If that's there then I check to 
+	see if there is more than 2 currency cards within the cards drawn. 
+	
+	The second function is more concerned with the total card counts. It evaluates what was drawn, what 
+	was discarded, and was is still left. If the sum doesn't add up correctly, we know that there could
+	be a potential seg fault due to the deck shuffling the extra added cards back into itself, the 
+	discard pile trying to contain all of the extra cards, or the hand drawing to many cards.
+	
+	The last thing that came up within the last day is how exactly I would print to the text file my 
+	errors. I was able to talk with our instructor Alex, and he explained that it's impractical to 
+	load my output file full the same issues. I asked him about my current approach where I track the 
+	number of specific problems that occur and report specifically that. He told me that it was fine
+	because of the number of times a few of the appear. He did imply that there was a better way of
+	tracking the issues by using an itterator to stop printing to the screen the issue when they become
+	to prominant and dominate the text file. I think this would be ideal, but the current structure of 
+	my code would need to be heavily refactored to implement this. Since I got the okay to continue 
+	with my current logic, that's what I'll be sticking with.
+	
+	As of right now, my adventurer card random testing is to my liking. I can't think of anything else
+	to implement with it that would make it provide a marginally better test. My next step for tomorrow 
+	is to find another card and see how much of my adventurer test suite is applicable to use for it.
+	Once that's done, I'll probably spend about a day thinking about the card and its implications 
+	before diving into trying to code the test.
+	
+Saturday, Febuary 13th
+	When I ran the adventurer card a few days ago, I found that it was on occassion producing to many 
+	cards and that the sums weren't adding up. So I decided that the next card that I test should be a 
+	simpler card that contains the same external function calls as adventurer. That way I can pick the 
+	card apart and evaluate if these external functions are forcing the cards to error.
+	
+	The card I chose to do this test with is Great Hall. It has a single discard function, a single 
+	draw card function, and is a non-complicated piece of code to compare with the adventurer card.
+	Since the simplicity of the card, I am able to use most of my previously written test. I had to take
+	out some of the currency checking, and add another function that checks the action count.
+	
+Results:
+	Adventurer test:
+		Right out of the gate, the most blatent issue that can be seen is that the adventurer 
+		functionality discards currency cards while it draws. More specifically the check that's made
+		checks all cards that were discarded after after cardEffect() is called. Therefore anything that's
+		discarded must be part of the adventurer logic. Since turns don't end in this suite, there would be
+		no reason to discard currency cards. The second issue I ran into was that the cards drawn usually
+		contained more than 2 currency cards. Implying that the stopping logic missed a currency card or
+		just doesn't check the number of them correct. The next issue that appeared  was when there were 
+		less than 2 currency cards in the players hand and there were still cards in the deck to chose from.
+		This issue appreared in a smaller frequency, appearning roughly 20~/10000 times per run. This 
+		check logic was the same logic as I used in the previous check. Lastly, the final issue I ran into
+		which was the most infrequent, tallied all of the cards drawn, cards in hand, cards in the discard,
+		and cards left in deck and checked to see if it was a correct tally. Roughly 4~/10000 runs would 
+		run into this summation issue.
+		
+	Great Hall test:
+		Simaliar to the unit tests assignment, I found that the discard pile doesn't get updated correctly.
+		This could be detrimental to actually playing the game when you need to figure out how many cards
+		you need to shuffle back into your deck. Or if another card needs to participate with your discard
+		count. Specifically, I'm testing the variable state.discardCount[player]. Unless I'm 
+		missunderstanding the variable, this should be the number of cards currently in the discard pile as
+		there is no comment or indicator to what exactly it's tracking. Outside of that static issue, there
+		were two other issues that arose only a number of times. The first issue was was the number of 
+		actions did not get icremented correctly a few times. The second issue is that the hand count 
+		sometimes returned size errors indicating that a card wasn't player or more cards were discarded.
+		If the card wasn't played, it would be indicated by cardEffect() returning -1. It didn't however.
+		
+	With the comparison of the two cards, clearly there is an issue with the discard count, but it's too
+	erronous to be able to speculate any corrilation between the two. On one hand, you have 1 card that 
+	gives you an error based counting specific cards, and on the other side you have an error based on 
+	counting the number of cards discarded. I could dicern no corrilation between the two.
