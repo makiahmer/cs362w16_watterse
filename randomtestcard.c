@@ -16,7 +16,7 @@ int main() {
 	  int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse, 
 	       sea_hag, tribute, smithy};
 
-	  int i, j, n, players, player, handCount, deckCount, seed, address, oldactioncount, success;
+	  int i, j, n, players, player, handCount, deckCount, seed, address, oldactioncount, success = 0;
 	  //struct gameState state;
 	  struct gameState state;
 	  

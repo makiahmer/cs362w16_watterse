@@ -85,24 +85,7 @@ unittestresult:
 	gcov cardtest4.c >> unittestresult.out
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
-	
-	# ./unittest1 &> unittestresult.out
-	# gcov dominion.c >> unittestresult.out
-	# ./unittest2 >> unittestresult.out
-	# gcov dominion.c >> unittestresult.out
-	# ./unittest3 >> unittestresult.out
-	# gcov dominion.c >> unittestresult.out
-	# ./unittest4 >> unittestresult.out
-	# gcov dominion.c >> unittestresult.out
-	# ./cardtest1 >> unittestresult.out
-	# gcov dominion.c >> unittestresult.out
-	# ./cardtest2 >> unittestresult.out
-	# gcov dominion.c >> unittestresult.out
-	# ./cardtest3 >> unittestresult.out
-	# gcov dominion.c >> unittestresult.out
-	# ./cardtest4 >> unittestresult.out
-	# gcov dominion.c >> unittestresult.out
-	# cat dominion.c.gcov >> unittestresult.out
+
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
 
@@ -114,9 +97,15 @@ runtests: testDrawCard
 
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
+	
+testdomfunc.o: testdomfunc.c testdomfunc.h
+	gcc -c testdomfunc.c -g $(CFLAGS)
+	#update when needed
+testdominion: testdominion.c testdomfunc.o 
+	gcc -o testdominion testdominion.c -g dominion.o rngs.o testdomfunc.o $(CFLAGS)
 
 #all: playdom playdom2 player testDrawCard testBuyCard badTestDrawCard 
-all: playdom playdom2 player testDrawCard testBuyCard badTestDrawCard unit1 unit2 unit3 unit4 card1 card2 card3 card4 adventurer 
+all: playdom playdom2 player testdominion testDrawCard testBuyCard badTestDrawCard unit1 unit2 unit3 unit4 card1 card2 card3 card4 adventurer 
 
 clean:
-	rm -f *.o playdom.exe playdom test.exe test player unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 randomtestadventurer player.exe testInit testInit.exe *.gcov *.gcda *.gcno *.so
+	rm -f *.o playdom.exe playdom test.exe test player testdom unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 randomtestadventurer player.exe testInit testInit.exe *.gcov *.gcda *.gcno *.so
