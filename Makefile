@@ -94,18 +94,23 @@ runtests: testDrawCard
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
-
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
 	
 testdomfunc.o: testdomfunc.c testdomfunc.h
 	gcc -c testdomfunc.c -g $(CFLAGS)
 	#update when needed
-testdominion: testdominion.c testdomfunc.o 
-	gcc -o testdominion testdominion.c -g dominion.o rngs.o testdomfunc.o $(CFLAGS)
+testdominion: 
+	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c testdomfunc.c testdominion.c rngs.c -o testdominiontest -lm -g
+
+gameResults: testdominion
+	./testdominiontest &> gameResults.out
+	gcov dominion.c >> gameResults.out
+	cat dominion.c.gcov >> gameResults.out
 
 #all: playdom playdom2 player testDrawCard testBuyCard badTestDrawCard 
-all: playdom playdom2 player testdominion testDrawCard testBuyCard badTestDrawCard unit1 unit2 unit3 unit4 card1 card2 card3 card4 adventurer 
+all: playdom playdom2 player testdominion gameResults testDrawCard testBuyCard badTestDrawCard unit1 unit2 unit3 unit4 card1 card2 card3 card4 adventurer 
 
 clean:
 	rm -f *.o playdom.exe playdom test.exe test player testdom unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 randomtestadventurer player.exe testInit testInit.exe *.gcov *.gcda *.gcno *.so
+	rm gameResults.out
