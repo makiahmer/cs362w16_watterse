@@ -104,12 +104,12 @@ testdominion:
 	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c testdomfunc.c testdominion.c rngs.c -o testdominiontest -lm -g
 
 gameResults: testdominion
-	./testdominiontest &> gameResults.out
-	gcov dominion.c >> gameResults.out
-	#cat dominion.c.gcov >> gameResults.out
+	./testdominiontest &> gameResults1.out
+	gcov dominion.c >> gameResults1.out
+	#cat dominion.c.gcov >> gameResults1.out
 
 #all: playdom playdom2 player testDrawCard testBuyCard badTestDrawCard 
-all: playdom playdom2 player testdominion gameResults testDrawCard testBuyCard badTestDrawCard unit1 unit2 unit3 unit4 card1 card2 card3 card4 adventurer 
+all: testdominion gameResults 
 
 clean:
 	rm -f *.o playdom.exe playdom test.exe test player testdominiontest unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 randomtestadventurer player.exe testInit testInit.exe *.gcov *.gcda *.gcno *.so
