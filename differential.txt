@@ -3,7 +3,7 @@ I have produced gameResult.out using my own version of dominion.c
 and using my classmate Shannon Ernst's  version of dominion.c I produced gameResult1.c
 My tester code appears to work with both mine, and Shannon's dominion code.
 Both execution yield a good coverage of both version of the dominion code, yielding 43.50% and 45.25% lined executed.
-Using the command "diff gameResult.out gameResult1.out" I got the following results (refer to info below).
+Using the command "diff gameResults.out gameResults1.out" I got the following results (refer to info below).
 
 After viewing the results produced by diff, I have concluded that the line differences is normal, given that 
 the dominion play through using my testers generates random kindom cards, random number of player between 2 to 4,
@@ -13,17 +13,17 @@ to recreate how I obtain the follow result: you do this
 
 for my version: 
 	go the directory where my all my dominion related files exist, and just type "make all"
-	you can then find the result in the file gameResult.out
+	you can then find the result in the file gameResults.out
 	
 for getting result using Shannon's dominion code:
 	change directory into "assign4classmate_shannon_dominion_c_"
 	then jus type "make all"
-	you can then find the result in the file gameResult1.out
+	you can then find the result in the file gameResults1.out
 	
 After that you can move gameResult1.out to the directory where all my dominion files exist, and run 
-"diff gameResult.out gameResult1.out >> differential.txt"
+"diff gameResults.out gameResult1s.out >> differential.txt"
 
-The following are the results of the gameResult.out vs gameResult1.out
+The following are the results of the gameResults.out vs gameResults1.out
 
 2,14c2,14
 < k[0] : 26 , Treasure Map
