@@ -105,6 +105,7 @@ testdominion:
 
 gameResults: testdominion
 	./testdominiontest &> gameResults.out
+	./testdominiontest &> testdominion.out
 	gcov dominion.c >> gameResults.out
 	#cat dominion.c.gcov >> gameResults.out
 
