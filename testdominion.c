@@ -8,11 +8,16 @@
 #include <assert.h>
 #include <string.h>
 #include <time.h>
+//change number of RUN to change numbers of games to be played 
+#define RUN 1 
 
 
 int main(){
 	
 	srand(time(NULL));
+	int run = 0;
+
+do{
 	int i = 0, counter = 0, tempkc = 0, appear = 0, numplayer = 0, seed = 0, temp = -1, check = 0, money = 0;
 	int p0card = -1, p1card = -1, p2card = -1, p3card = -1, tempcard0 = 0, tempcard1 = 0, tempcard2 = 0, tempcard3 = 0;
 	int p0numcard = 0, p1numcard = 0, p2numcard = 0, p3numcard = 0;
@@ -21,8 +26,11 @@ int main(){
     struct gameState *p = &G;
 	char cardName[32];
 
+
 	// 0 to 26 index start at enum 7 
 	//create k[] of of size 10
+	
+
 	int k[10] = {0,0,0,0,0,0,0,0,0,0};
 	
 	printf("generating a random set of kindom cards\n");
@@ -136,6 +144,11 @@ int main(){
 	for (i = 0; i < numplayer; i++){
 		 printf ("Player %d: %d\n", i, scoreFor(i, p));
 	}
+		printf("\n\n");
+	
+	run++;
+	
+}while (run != RUN );
 	
 	
 	return 0;
