@@ -1,0 +1,53 @@
+RandomAdventurer:
+
+	* origional test segfault all the time
+	* The rand function of this test generates the same tests ever time
+	* so I added srand(time(NULL)) to make the test more random.
+	
+	* This test uses a pre maded initilaizeGame function, that might or might not be correct so that can be risky
+	* This test runs game with same kingdom card every time. It would be better if we can random the kindom card used
+	* when attempting to run with random kingdom cards, I ran in to memory issues there for I returned back to using the 
+	  given kindom cards. I will probably figure out how to make then do random kingdom card at a later time.
+	  
+	* I have also notice that this test runs the same kind of test 3 different times in the test. I find this to be just 
+	  duplicating code. so I removed the extra 2.
+	  
+	* As I looked in to the adventurer card, I found a bug adventurer's card affect is suppose to be 
+	  draw until you get 2 treasure card in your hand and discard all other drawn card that is not.
+	  I am not sure if it is doing what it is supopse to so I checked after I play adventurer
+	  
+	* The number of card discarded is roughly 30% on test, there might be a problem with discared in adventurer function.
+
+	* also the game would segfault some of the time, I don't know the reason behind this problem as of yet.
+	  however the number of segfault seems to relate to the number of tests. as it appears to segfault less on 1,000 test 
+	  compared to 10,000 test.
+	
+	* Overall the origional test was a worse test compared to the updated one I created, however this test is still bad
+	  as it segfaults some of the time during execution.
+	  
+	* Coverage: 24.96 % of 577 lines 
+	
+RandomCardTest:
+
+	*For randomcard test, I did my test on the card village
+	* I used the given smithy random card test format, I changed it to use the Village card instead
+	
+	* The origional smity card test format has a few things that I corrected
+	
+	* The first is the repeated code for tests, I deleted 2 same copy of coded and just kept one.
+	
+	* second is that rand function was not really random, so I seed it srand(time(NULL));
+	
+	* Just like what smithy card test does, I first set a random number of player using rand () % MAX_PLAYERS 
+	
+	* then I called initilaizeGame to set games up after, I assign random deckCount, discardCount, and handCount.
+	* Then play village card by calling cardEffect().
+	
+	* I also added an safety check after all the test finish running, to make sure that village is doing what it suppose too
+	
+	* it seems that the number of cards, such as in handCount, discardCount does not change. This can indicate that there
+	  might be problem with the draw and discard function in dominion.c
+	  
+	* The action count does get change correctly which is 2, but handcount doesn't it was suppose to be increased by 1
+	
+	* Coverage: Lines executed:24.26% of 577 
