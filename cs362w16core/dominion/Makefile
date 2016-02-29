@@ -23,13 +23,23 @@ runRandomCard: randomcard
 	gcov dominion.c >> randomtestcard.out
 	cat dominion.c.gcov >> randomcard.out
 
-
 playdom: dominion.o playdom.c
 	gcc -o playdom playdom.c -g dominion.o rngs.o $(CFLAGS)
 
 playdom2: dominion.o playdom2.c
 	gcc -o playdom2 playdom2.c -g dominion.o rngs.o $(CFLAGS)
-
+	
+	
+	
+testdom:
+	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c testdominion.c rngs.c -o testdominion2 -lm -g
+	./testdominion2 5 &> gameResults.out
+	./testdominion2 5 &> testdominion.out
+	gcov dominion.c >> gameResults.out
+	cat dominion.c.gcov >> gameResults.out
+	
+	
+	
 testDrawCard: testDrawCard.c dominion.o rngs.o
 	gcc -o testDrawCard -g  testDrawCard.c dominion.o rngs.o $(CFLAGS)
 
@@ -120,7 +130,6 @@ unittestresults.out:
 	./cardtest4 >> unittestresult.out
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
-	
 	
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
