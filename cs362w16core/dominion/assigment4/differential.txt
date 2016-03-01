@@ -1,0 +1,65 @@
+For my diff test, I was given permission by Jia Chen to compare his implementation of dominion.c to my own.
+
+Where our implementations diverged was when each implementation chose the card Sea Hag. 
+
+My own dominion.c: 
+
+       We playin' card 25, at hand possition 2
+           Choice 1: 0, choice 2: 0, choice 3: 1
+Player 1's turn. Hand size:  5
+   Player 1's hand at 0:  0
+   Player 1's hand at 1:  1
+   Player 1's hand at 2:  1
+   Player 1's hand at 3:  4
+   Player 1's hand at 4:  20
+   
+Jia Chen's dominion.c:
+
+      We playin' card 25, at hand possition 2
+           Choice 1: 0, choice 2: 0, choice 3: 1
+Player 1's turn. Hand size:  5
+   Player 1's hand at 0:  1
+   Player 1's hand at 1:  4
+   Player 1's hand at 2:  20
+   Player 1's hand at 3:  4
+   Player 1's hand at 4:  1
+   
+ 
+The physical card Sea Hag has the text:
+	Each other player discards the top card of his deck, then gains a Curse card, putting it on top of 
+	his deck.
+	
+My implementation of the Sea Hag card:
+	
+	int sea_hag_func(int currentPlayer, struct gameState *state, int handPos){
+		int i;
+		for (i = 0; i < state->numPlayers; i++){
+			if (i != currentPlayer){
+			state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];
+			state->deckCount[i]--;
+			state->discardCount[i]++;
+			state->deck[i][state->deckCount[i]++] = curse;//Top card now a curse
+			}
+		}
+		return 0;
+	}
+
+Jia Chen's implenation of the Sea Hag card:
+
+    case sea_hag:
+      for (i = 0; i < state->numPlayers; i++){
+	if (i != currentPlayer){
+	  state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];			    
+	  state->deckCount[i]--;
+	  state->discardCount[i]++;
+	  state->deck[i][state->deckCount[i]--] = curse;//Top card now a curse
+	}
+      }
+      return 0;
+
+Conclussion:
+	I believe Jia's implementation is the correct one. The difference can be seen with 
+		
+		state->deck[i][state->deckCount[i]++] = curse;//Top card now a curse
+	
+	Since with my implementation, we are attributing 2 new cards to the players deck instead of just 1.
