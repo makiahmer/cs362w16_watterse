@@ -1,0 +1,26 @@
+Makiah Merritt
+CS 362 - Assignment 4
+02/29/2016
+===========================================================================================
+Pick a classmate with a working Dominion implementation. In a scratch directory, not in the 
+svn repository, run testdominion.c with their code as the dominion implementation. Use diff 
+or another tool to compare the gameResults.out from their code with your own code’s results. 
+Explain these results, and their value in a file called differential.txt.
+===========================================================================================
+First off because the games are randomized I'm not sure what we are supposed to compare
+between the two. For presumptions sake we shall look at the most common cards played and if
+the number of turns taken.
+
+So for the alternate dominion.c file I used Steven Powers'. Somewhat surprisingly the two
+runs have very similar occurances, which makes me think rand() was too basic an 
+approach for this assignment. The largest difference was that the run on his code chose to
+only implement two players vs. three on my code. Beyond that there was a fairly similar 
+pattern between both runs. There were very few occurances where one play would implement a
+card effect that the other wouldn't, instead they tended to implement card effects around
+the same time using different cards. The last large difference was that my game completed in
+109 turns whereas the game from his code used 126.
+
+In summation I believe that the main reason games from two different dominion.c files played 
+similarly was the use of the generic rand() function vs. a more sophisticated rand system 
+such as mt86. Using rand() there was little variation that could be had on the same piece of 
+code, assuming our dominion.c files were similar.

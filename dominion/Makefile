@@ -196,6 +196,7 @@ assign2: merrittm_unittest1 merrittm_unittest2 merrittm_unittest3 merrittm_unitt
 	cat dominion.c.gcov >> ./assign2/merrittm_unittestresult.txt
 	echo >> ./assign2/merrittm_unittestresult.txt
 
+
 # =======================================================================
 # Makiah Merritt, CS 362 Assignment 3
 # Random Tests
@@ -206,6 +207,22 @@ merrittm_randtest2: ./assign3/randomtest_remodel.c dominion.o rngs.o
 	gcc -o merrittm_randomtest2 -g  ./assign3/randomtest_remodel.c dominion.o rngs.o $(CFLAGS)
 
 assign3: merrittm_randtest1 merrittm_randtest2
+
+
+# =======================================================================
+# Makiah Merritt, CS 362 Assignment 4
+# Random Test Dominion
+merrittm_randtestdominion: ./assign4/testdominion.c ./dominion.o ./rngs.o
+	gcc -o merrittm_randtestdominion -g ./assign4/testdominion.c ./dominion.o ./rngs.o $(CFLAGS)
+
+assign4: merrittm_randtestdominion
+
+run_assign4: merrittm_randtestdominion
+	rm -f -v gameResults.out
+	#ulimit -t 10;	# limit CPU time in bash
+	#limit -t 10;	# limit CPU time in tsch
+	merrittm_randtestdominion | tee gameResults.out
+
 # =======================================================================
 
 all: playdom player testDrawCard testBuyCard badTestDrawCard
@@ -213,4 +230,4 @@ all: playdom player testDrawCard testBuyCard badTestDrawCard
 clean:
 	clear
 	# Removing Files
-	rm -f -v *.o playdom.exe playdom test.exe test player unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 player.exe testInit testInit.exe *.gcov *.gcda *.gcno *.so merrittm_unittest1 merrittm_unittest2 merrittm_unittest3 merrittm_unittest4 merrittm_cardtest1 merrittm_cardtest2 merrittm_cardtest3 merrittm_cardtest4 merrittm_randomtest1 merrittm_randomtest2
+	rm -f -v *.o playdom.exe playdom test.exe test player unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 player.exe testInit testInit.exe *.gcov *.gcda *.gcno *.so merrittm_unittest1 merrittm_unittest2 merrittm_unittest3 merrittm_unittest4 merrittm_cardtest1 merrittm_cardtest2 merrittm_cardtest3 merrittm_cardtest4 merrittm_randomtest1 merrittm_randomtest2 merrittm_randtestdominion
