@@ -1,0 +1,42 @@
+Testing gillenp dominion.c
+
+From randomized testing, a variance was found in the Cutpurse card.
+	The problem occured when the last card played caused a segmentation
+	fault in the randomized testing log. After tracing the log, I found 
+	that the error traced back to the Cutpurse card. After running the 
+	card through randomized single card tester, the card started 
+	portraying issue relating to attempting to use 1 over the maximum 
+	player count. Since it was larger than the size of the array, it 
+	caused a seg fault. 
+	
+	Tracing the problem in dominion.c, it can be seen on line 746 that
+	the hand itterator, j, is swapped with the player itterator, i. 
+	If the hand is larger than the player count, then you run into 
+	memory management issues.
+	
+	Relavent code:
+	
+		for (i = 0; i < state->numPlayers; i++)
+		{
+			if (i != currentPlayer)
+			{
+				for (j = 0; j < state->handCount[i]; j++)
+				{
+					//BUG!!!!! The itterators are swapped!
+					if (state->hand[j][i] == copper)
+					{
+						discardCard(j, i, state, 0);
+						break;
+					}
+					if (j == state->handCount[i])
+					{
+						for (k = 0; k < state->handCount[i]; k++)
+						{
+							if (DEBUG)
+								printf("Player %d reveals card number %d\n", i, state->hand[i][k]);
+						}	
+						break;
+					}		
+				}
+			}
+		}				

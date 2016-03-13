@@ -1,0 +1,27 @@
+Testing gillenp dominion.c
+
+From randomized testing, a variance was found in the Embargo card.
+	Similiar to the the Cutpurse card issue, The problem occured when 
+	the last card played caused a segmentation fault in the randomized
+	testing log. After tracing the log, I found that the error traced 
+	back to the Embargo card. After running the card through 
+	randomized single card tester, the card never protrayed any issues.
+	Looking back at the randomized testing, it was clearly the Embargo 
+	card that was the issue. So following the cardeffect() function to
+	the Embargo card functionality, the problem appeard in the 
+	embargoEffect() function call's arguments. By comparing the 
+	function calls arguments to the function calls parameters, it 
+	shows a swap in intended arguments. The arguments in question are 
+	the hand possition and player variables. Since they are swapped, 
+	if you have a hand that is larger than the max player count, you
+	can cause segmentation fault due to array sizes.
+	
+	Tracing the problem in dominion.c, it can be seen on line 1181 that
+	the hand possition and selected player arguments have been switched
+	in the ebargoEffect() function call. If the hand is larger than the 
+	player count, then you run into memory management issues.
+	
+	Relavent code:
+	
+		case cutpurse:
+			return cutpurseEffect(currentPlayer, state, handPos);

@@ -1,0 +1,12 @@
+Reporter: Elya Christman
+Function: discardCard()
+Severity: major
+Priority: P4
+Bug Number: 0002
+Location: dominion.c in cs362w16_watterse repository.
+
+This bug appears in the implementation of the DiscardCard() function in dominion.c and was found by my random tester for the Great Hall card. It appears that after a card is
+played and discarded, the number of cards in the discard pile is not updated. This bug occurred with every run of the random tester so it can be replicated by randomizing valid 
+inputs for the number of players, current player, number of actions, hand count, deck count, discard count, and hand position and initializing those random values into the game
+state. The cardEffect() function can then be called with using the Great Hall card and zero for each of the choices. After this function call, you can see that the number of cards 
+in the discard pile did not increase by one as it should have.

@@ -1,0 +1,49 @@
+Acknowledgement:
+
+	Based on Elya Christman's analysis of my dominion implementation, in a file 
+	she submited to me labled christme1.txt she had found a bug within my code 
+	for the card Steward that caused a lack of coins gained by the player. The 
+	inputs she used to test the card were:
+
+	state->coins = 5;
+	state->whoseTurn = 0;
+	state->handCount[state->whoseTurn] = 6;
+	handPos = 1;
+	state->hand[state->whoseTurn][handPos] = steward;
+
+Testing:
+	
+	Since Elya has been so kind to provide the the basic setup for steward card, 
+	I was able to implement that in a unit test and run that through GDB to view 
+	what is exactly happening with the coins variable. The Unit test file is 
+	labeled steward_unittest.c and is a modification of the cardtest1.c file 
+	that I created for assignment 1.
+
+	While stepping through the unit test with GDB, I set break points before and 
+	after the cardeffect function and set a watch on the G.coins; variable. After 
+	running the GDB with the unit test, it was clear that the coins only grew by 
+	1 instead of 2. 
+	
+	After I verified that the error existed, I opened my dominion.c implementation 
+	and went down to the Steward functionality inside of the cardeffect() 
+	function's switch statement. Once there, I traced the cards lines of code until 
+	I found where the coin variable get's minipulated. Right under the comment that 
+	said "//+2 coins" was the statement on line 976
+		state->coins = state->coins + 1; 
+	Double checking that the functionality of the card does actually require two 
+	additional coins instead of one, I proceeded to the Dominion card games 
+	official website to verify the card text. Once verified, I changed the changed 
+	the + 1 to + 2 on line 976. I ran it through GDB again, with the same break 
+	points and the same watch, and it worked as intended with two coins, instead of 
+	one previously.
+	
+	Comparing my steps to the Agans' Debugging Rules, I felt that I portayed rules 1,
+	2, 7, 8, and 9. Rule 1 stipulates that you need to understanding the system, well I 
+	just spent the last 3 months learning the system. Rule 2 stipulates that you need 
+	to make the code fail, and that was the first thing I did when I made the unit 
+	test. Rule 7 stipulates check the plug, and this was acomplished with print 
+	statements that corrisponded the variables I was checking inside of GDB. Rule 8 
+	stipulates that a fresh view of the problem is needed, and Elya being that fresh 
+	view is what allowed me to find the bug in the first place. Lastly, rule 9 
+	stipulates if it isn't fixed then you didn't fix it, and by double checking the 
+	change I made to line 976 in dominion.c, I verified that the bug was fixed.

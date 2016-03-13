@@ -686,7 +686,7 @@ int salvager_func(int currentPlayer, int choice1, struct gameState *state, int h
 	}
 			
     //discard card
-    discardCard(handPos, currentPlayer, state, 0);
+    discardCard(handPos, currentPlayer, state, 1);
     return 0;
 }		
 
@@ -1054,7 +1054,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
       else if (choice1 == 2)
 	{
 	  //+2 coins
-	  state->coins = state->coins + 2;
+	  state->coins = state->coins + 1;
 	}
       else
 	{

@@ -1,0 +1,16 @@
+Reporter: Elya Christman
+Function: cardEffect()
+Severity: major
+Priority: P3
+Bug Number: 0001
+Location: dominion.c in cs362w16_watterse repository.
+
+This bug appears in the Steward card implementation in dominion.c and was found by my unit test for that card implementation. When the unit test on this card is run, the total number of coins is not updated correctly. For proper implementation
+of the Steward card, the number of coins should increase by two. To reproduce the error, the following inputs can be used:
+state->coins = 5;
+state->whoseTurn = 0;
+state->handCount[state->whoseTurn] = 6;
+handPos = 1;
+state->hand[state->whoseTurn][handPos] = steward;
+With these inputs, the cardEffect function can then be called and the number of coins after the call should be 5+2=7. This assertion is failing meaning the total number of coins is not
+being updated correctly.

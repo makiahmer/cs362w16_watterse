@@ -1,0 +1,28 @@
+Testing christme dominion.c
+
+From randomized testing, a variance was found in the Adventurer card.
+	The problem originally occured when the next player that tried play 
+	a card after the adventurer card was played always differed from the 
+	oracle. Since I knew that the adventurer card was never supposed to
+	interact with any other players, I knew there had to be an issue 
+	where the card did just that or failed in such a way that would 
+	cascade into the rest of the program somehow. After running the 
+	card through unit tests, I never ran into any particular issues.
+	It wasn't until I took a look at the dominion.c code and traced 
+	what happened after the code completed that I realized that the 
+	issue wasn't with the Adventurer card, but with the cardeffect() 
+	function's switch statement.
+	
+	Specifically, the switch statement for the adventurer card doesn't 
+	contain a return call. Meaning that once the cards function is called, 
+	it coninues on in the cardeffect() function and tries to use the
+	return -1; call to exit the function.
+	
+	Relavent code:
+	
+	    case adventurer:
+			//calls the adventurerCard() function which begins on line
+			z = adventurerCard(drawntreasure, z, currentPlayer, state, temphand);
+		
+	As a side note, z isn't needed here as the function will end promptly 
+	after setting z.

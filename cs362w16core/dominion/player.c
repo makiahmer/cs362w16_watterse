@@ -29,8 +29,8 @@ int main2(int argc, char *argv[]) {
 	getchar();
 }
 
-int main(int argc, char* argv[]) {
-		char *add  = "add";
+int main3(int argc, char* argv[]) {
+	char *add  = "add";
 	char *buyC = "buy";
 	char *endT = "end";
 	char *exit = "exit";

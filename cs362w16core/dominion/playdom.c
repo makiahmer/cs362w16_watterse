@@ -1,7 +1,7 @@
-#include "dominion.h"
 #include <stdio.h>
-#include "rngs.h"
 #include <stdlib.h>
+#include "dominion.h"
+#include "rngs.h"
 
 int main (int argc, char** argv) {
   struct gameState G;
@@ -12,8 +12,13 @@ int main (int argc, char** argv) {
 
   printf ("Starting game.\n");
   
+<<<<<<< HEAD:cs362w16core/dominion/playdom.c
   initializeGame(2, k, atoi(argv[1]), p);
   printf("Initialized game.\n");
+=======
+  initializeGame(2, k, atoi(argv[1]), p);						// argv[1] is a REQUIRED seed for a random number
+  
+>>>>>>> 4ff5ff9b796aae54fc53608c538a20b29c0370d8:dominion/playdom.c
   int money = 0;
   int smithyPos = -1;
   int adventurerPos = -1;

@@ -1,0 +1,34 @@
+﻿Dominion.c Software Inspection of Padraig Gillen’s (onid: gillenp) Implementation.
+
+
+Individuals present:
+        Padraig Gillen
+        Kathryn Maule
+        Makiah Merrit
+        Myself
+
+
+Bugs Found: 
+Function call for Cutpurse: switched j and i indices.
+                line 746
+        
+Function call for Embargo: switched hand position function parameter for current player, and current player function parameter for hand position.
+line 1184
+
+
+Testing process:
+
+
+        To begin the testing of Padrag’s code, we decided that full game randomized testing would give us the best indication of something to go wrong. So I started off by testing his code against a fresh dominion.c implementation from the instructors repository. Using Padraigs randomized testing suite, and running 100 tests, we found that the program seg faulted on the third test when we ran a diff on the output files. By tracing back to the last card played, we found that the problem originated from the Cut Purse card when it was called within the program. So we quickly developed a randomized test for Cutpurse and ran that 100 times to see if we could replicate the problem, using print statements to view the the coin count, the player currently being evaluated by the card, and if the test found any copper cards within the player's hand. What ended up happening was that the program seg faulted again shortly after being ran. What could be immediately seen was that when we reached the last player to be evaluated, it would try to go to at least 1 more player. Since we knew that it was an issue with the range, the next logical step is to check what conditions are in place for Padraigs for loop calls. My initial assumption was that it was an off by 1 error in the iterator, however it was pointed out by Mikiah that state.playerCount - 1 is the correct way to evaluate the ending condition for the loop involving the number of players. So since it wasn’t the problem with the for loop itself, the next step would be to look at what exactly was being called within the for loop. Following through the for loop, the we looked at the nested for loop within it, which attempts to pass through the entirety of the current player's hand. Between the 3 of us evaluating the code, we all agreed that the conditionals for the for loop looked fine. So moving deeper, we evaluated the if statement within the nested loops. It took a second, but eventually it dawned on Mikiah that the if statement had the wrong iterator for the current player. Specifically, 
+
+
+if ( state.hand[ j ][ i ] ){ … }
+
+
+was the line that was problematic. Since we knew that the first array indexes the player count, and we knew that the i iterator was associated with traversing the players and not their hand, we could easily tell that the iterators were swapped.
+
+
+        Once the first error was accounted for, we fixed bug and then pushed the updated build through the full game random tester again to see if we could find anything else that popped up. The second issue that appeared also appeared in the form of a seg fault similar to the first issue we came across. This problem occurred fairly far into the test however and  I didn’t keep an iterator for the test number, so my speculation is that it happened probably around test 60 or 70 out of 100. Following the same method to analyze the problem, we started by tracking back to the last card played, found it was the card Embargo, and placed it into it’s own randomized test. To do the randomized tests, we saw that the card was in it’s own function so we called the function itself instead of the cardeffect() function to attempt to lower the chance of trying cover too much code. After running the tests however, we didn’t find any issues with the card itself. No input we gave caused assert errors for the hand or player state variables. So, after a long period of confusion, and looking at the dominion.c code for Embargo, it came to our attention that we payed no attention to how the function was being called in cardeffect(). We then took step back and refactored our randomized test to encompass cardeffect(), and low and behold our error promptly showed up. Since we knew there was most likely an issue between the start of cardeffect() and the Embargo function call, and we knew that all that was happens inside the function is the initialization of variables, calling of a switch statement, and the function call itself, we were able to fairly easily trace the steps to the function call. Inside the function’s arguments, though subtle, we found that the iterators for the hand position and the current player had been swapped around in comparison to the functions definition parameters. So, we swapped the two variables, run the test again, and everything worked.
+
+
+ After grueling over the two bugs, Padraig informed us that we found the 2 bugs he intended to include in assignment 1. We then we moved onto the next person in our group.
