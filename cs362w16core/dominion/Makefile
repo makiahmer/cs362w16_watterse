@@ -82,6 +82,12 @@ testcard:
 	gcov dominion.c >> tempunittestresult.out
 	cat dominion.c.gcov >> tempunittestresult.out
 	
+testcard2:
+	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c steward_unittest.c rngs.c -o unittest5 -lm -g
+	./unittest5 &> tempunittestresult.out
+	gcov dominion.c >> tempunittestresult.out
+	cat dominion.c.gcov >> tempunittestresult.out
+	
 testclean:
 	rm -f cardtest1
 	rm -f tempunittestresult.out
