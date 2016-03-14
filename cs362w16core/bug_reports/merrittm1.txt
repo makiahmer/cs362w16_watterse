@@ -1,0 +1,121 @@
+/*******************************************************************************************
+** Tester		:	Makiah Merritt
+** Testee		:	Erik Watterson
+** Date Found	:	03/12/2016
+** Severity		:	Average
+** Priority		:	Low
+** Short Desc.	:	Appropriate value is not being set.
+*******************************************************************************************/
+
+==== DESCRIPTION ====
+While testing using my cardtest1.c file, which tests each aspect of the expected Steward 
+card effect, the gain two coins sub-test continually failed (see example output section). 
+Being as I'm using Visual Studio I was able to trace the code to find that in the 'steward' 
+card effect case the code is only adding one coin to the state's coins, instead of two per 
+the cards instructions.
+
+
+==== CAUSE ====
+Incorrect value being set to state->coins.
+	Current:
+		else if (choice1 == 2)
+		{
+			//+2 coins
+			state->coins = state->coins + 1;
+		}
+		
+	Correction:
+		else if (choice1 == 2)
+		{
+			//+2 coins
+			state->coins = state->coins + 2;
+		}
+	
+
+==== IMPACT ====
+The impact of this bug is not horribly significant as the game state will never corrupt. 
+However, it does place any player using the steward card at an unfair disadvantage as 
+they're not recieving the full card effect if they choose their alternate choice.
+
+
+==== EXAMPLE TESTER OUTPUT ====
+"
+---- STARTING CARD TEST [1 of 10] ----
+Part 1 (Draw two cards)...SUCESS
+Part 2 (Gain two coins)...FAILED
+Part 3 (Trash two cards)...SUCESS
+Unit test was successfully completed.
+---- //END// CARD TEST [1 of 10] ----
+
+
+---- STARTING CARD TEST [2 of 10] ----
+Part 1 (Draw two cards)...SUCESS
+Part 2 (Gain two coins)...FAILED
+Part 3 (Trash two cards)...SUCESS
+Unit test was successfully completed.
+---- //END// CARD TEST [2 of 10] ----
+
+
+---- STARTING CARD TEST [3 of 10] ----
+Part 1 (Draw two cards)...SUCESS
+Part 2 (Gain two coins)...FAILED
+Part 3 (Trash two cards)...SUCESS
+Unit test was successfully completed.
+---- //END// CARD TEST [3 of 10] ----
+
+
+---- STARTING CARD TEST [4 of 10] ----
+Part 1 (Draw two cards)...SUCESS
+Part 2 (Gain two coins)...FAILED
+Part 3 (Trash two cards)...SUCESS
+Unit test was successfully completed.
+---- //END// CARD TEST [4 of 10] ----
+
+
+---- STARTING CARD TEST [5 of 10] ----
+Part 1 (Draw two cards)...FAILED
+Part 2 (Gain two coins)...FAILED
+Part 3 (Trash two cards)...SUCESS
+Unit test was successfully completed.
+---- //END// CARD TEST [5 of 10] ----
+
+
+---- STARTING CARD TEST [6 of 10] ----
+Part 1 (Draw two cards)...FAILED
+Part 2 (Gain two coins)...FAILED
+Part 3 (Trash two cards)...SUCESS
+Unit test was successfully completed.
+---- //END// CARD TEST [6 of 10] ----
+
+
+---- STARTING CARD TEST [7 of 10] ----
+Part 1 (Draw two cards)...FAILED
+Part 2 (Gain two coins)...FAILED
+Part 3 (Trash two cards)...SUCESS
+Unit test was successfully completed.
+---- //END// CARD TEST [7 of 10] ----
+
+
+---- STARTING CARD TEST [8 of 10] ----
+Part 1 (Draw two cards)...FAILED
+Part 2 (Gain two coins)...FAILED
+Part 3 (Trash two cards)...SUCESS
+Unit test was successfully completed.
+---- //END// CARD TEST [8 of 10] ----
+
+
+---- STARTING CARD TEST [9 of 10] ----
+Part 1 (Draw two cards)...FAILED
+Part 2 (Gain two coins)...FAILED
+Part 3 (Trash two cards)...SUCESS
+Unit test was successfully completed.
+---- //END// CARD TEST [9 of 10] ----
+
+
+---- STARTING CARD TEST [10 of 10] ----
+Part 1 (Draw two cards)...FAILED
+Part 2 (Gain two coins)...FAILED
+Part 3 (Trash two cards)...SUCESS
+Unit test was successfully completed.
+---- //END// CARD TEST [10 of 10] ----
+"
